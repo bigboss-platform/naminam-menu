@@ -1,0 +1,128 @@
+.toolbar {
+  position: sticky;
+  top: calc(var(--top-bar-height) + env(safe-area-inset-top));
+  z-index: 20;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: var(--space-12) var(--gutter) var(--space-sm);
+  background: rgba(253, 246, 240, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 48px;
+  padding: 0 var(--space-xs) 0 var(--space-12);
+  border-radius: var(--radius);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  color: var(--c-cocoa);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.search:focus-within {
+  border-color: var(--c-fresa);
+  box-shadow: 0 0 0 3px rgba(226, 125, 140, 0.15);
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  /* ≥16px stops iOS Safari from zooming into the field on focus */
+  font: inherit;
+  font-size: 16px;
+  color: var(--c-text);
+}
+
+.searchInput::placeholder {
+  color: var(--c-cocoa);
+  opacity: 0.8;
+}
+
+.searchInput::-webkit-search-cancel-button {
+  display: none;
+}
+
+.clear {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--c-cocoa);
+}
+
+.clear .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Pills wrap onto a new line — never extend past the screen edge */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-12);
+  padding-bottom: var(--space-xs);
+}
+
+.pill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 40px;
+  padding: 0 var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--c-cocoa);
+  transition: background-color 200ms ease, color 200ms ease, transform 300ms var(--ease-spring);
+}
+
+.pill:active {
+  transform: scale(0.95);
+  transition: transform 100ms ease;
+}
+
+.pill .material-symbols-outlined {
+  font-size: 16px;
+  color: var(--c-fresa);
+}
+
+.pillActive {
+  background: var(--c-cacao);
+  border-color: var(--c-cacao);
+  color: var(--c-card);
+}
+
+
+@media (min-width: 900px) {
+  .toolbar {
+    top: calc(72px + env(safe-area-inset-top));
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: var(--space-md) 0;
+  }
+
+  .search {
+    flex: 0 0 320px;
+  }
+
+  .pills {
+    flex: 1;
+    margin: 0;
+    padding: 0;
+  }
+}
