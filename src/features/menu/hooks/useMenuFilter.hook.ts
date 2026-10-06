@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { CATEGORIES, PRODUCTS } from '../data/menu.data';
 import type { Category, Product } from '../types/Product.type';
+import { useFilterTransition } from './useFilterTransition.hook';
 
 export type MenuFilterId = 'todos' | Category['id'];
 
@@ -16,13 +17,25 @@ function normalize(text: string): string {
 }
 
 export function useMenuFilter() {
-  const [query, setQuery] = useState('');
+  const [query, setQueryState] = useState('');
   const [activeFilter, setActiveFilter] = useState<MenuFilterId>('todos');
+  // Every filter/search change: scroll to top → brief skeleton → first card centered + focused.
+  const { isFiltering, startFilterTransition } = useFilterTransition();
 
-  const pills: MenuPill[] = [
-    { id: 'todos', label: 'Todos' },
-    ...CATEGORIES.map((category) => ({ id: category.id, label: category.label })),
-  ];
+  // No "Todos" option: with nothing selected the whole menu shows.
+  const pills: MenuPill[] = CATEGORIES.map((category) => ({ id: category.id, label: category.label }));
+
+  /** Tap a category to filter; tap the selected one again to go back to everything. */
+  const toggleCategory = (categoryId: MenuFilterId) => {
+    setActiveFilter((current) => (current === categoryId ? 'todos' : categoryId));
+    startFilterTransition();
+  };
+
+  const setQuery = (nextQuery: string) => {
+    if (nextQuery === query) return;
+    setQueryState(nextQuery);
+    startFilterTransition();
+  };
 
   const normalizedQuery = normalize(query);
   const matchesQuery = (product: Product) =>
@@ -38,20 +51,20 @@ export function useMenuFilter() {
   })).filter((section) => section.products.length > 0);
 
   const resetFilters = () => {
-    setQuery('');
+    setQueryState('');
     setActiveFilter('todos');
+    startFilterTransition();
   };
 
   return {
     query,
     setQuery,
+    isFiltering,
     activeFilter,
-    setActiveFilter,
+    toggleCategory,
     pills,
     sections,
     hasResults: sections.length > 0,
     resetFilters,
   };
 }
-
-export type MenuCtx = ReturnType<typeof useMenuFilter>;

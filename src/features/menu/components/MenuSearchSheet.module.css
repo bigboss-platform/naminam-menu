@@ -1,0 +1,67 @@
+/* One row: search field + trash button on the right */
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.field {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 52px;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--c-border);
+  color: var(--c-cocoa);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.field:focus-within {
+  border-color: var(--c-fresa);
+  box-shadow: 0 0 0 3px rgba(226, 125, 140, 0.15);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  /* ≥16px stops iOS Safari from zooming into the field on focus */
+  font: inherit;
+  font-size: 16px;
+  color: var(--c-text);
+}
+
+.input::placeholder {
+  color: var(--c-cocoa);
+  opacity: 0.8;
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.trashButton {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--c-border);
+  background: var(--c-card);
+  color: var(--c-cocoa);
+  transition: transform 300ms var(--ease-spring);
+}
+
+.trashButton:active {
+  transform: scale(0.92);
+  transition: transform 100ms ease;
+}

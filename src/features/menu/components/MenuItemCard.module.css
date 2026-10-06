@@ -8,12 +8,31 @@
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-1);
   overflow: hidden;
-  transition: transform 300ms var(--ease-spring), box-shadow 200ms ease;
+  /* Deep link from the home wheel (/menu#slug): clear the sticky top bar (mobile has no toolbar) */
+  scroll-margin-top: 80px;
+  transition: box-shadow 200ms ease;
 }
 
-.card:active {
-  transform: scale(0.98);
-  transition: transform 100ms ease;
+/* The card the home wheel linked to — or the first result after filtering (focused) —
+   gets a short highlight so the eye finds it */
+.card:target {
+  animation: targetPulse 1600ms ease 300ms;
+}
+
+.card:focus {
+  outline: none;
+  animation: targetPulse 1600ms ease 200ms;
+}
+
+@keyframes targetPulse {
+  0%,
+  100% {
+    box-shadow: var(--shadow-1);
+  }
+  30%,
+  60% {
+    box-shadow: 0 0 0 3px var(--c-fresa), var(--shadow-2);
+  }
 }
 
 /* The protagonist: full card width, generous height */
@@ -66,12 +85,12 @@
   overflow: hidden;
 }
 
-/* Pinned to the bottom of the card: note left, price bottom-right */
+/* Pinned to the bottom of the card: note left, price + WhatsApp button bottom-right */
 .footer {
   margin-top: auto;
   padding-top: var(--space-sm);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-sm);
 }
@@ -86,13 +105,11 @@
   text-overflow: ellipsis;
 }
 
-/* Small WhatsApp glyph tells the customer the tap goes to WhatsApp */
 .priceGroup {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  color: var(--c-whatsapp);
+  gap: var(--space-12);
 }
 
 .price {
@@ -103,8 +120,43 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The only action on the card — 48px so it's easy to hit with a finger */
+.whatsappButton {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.14);
+  color: var(--c-whatsapp);
+  transition: transform 300ms var(--ease-spring), background-color 200ms ease;
+}
+
+.whatsappButton:active {
+  transform: scale(0.9);
+  transition: transform 100ms ease;
+}
+
 @media (hover: hover) {
   .card:hover {
     box-shadow: var(--shadow-2);
+  }
+
+  .whatsappButton:hover {
+    background: rgba(37, 211, 102, 0.24);
+  }
+}
+
+@media (min-width: 900px) {
+  .card {
+    scroll-margin-top: 176px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:target {
+    animation: none;
+    box-shadow: 0 0 0 3px var(--c-fresa), var(--shadow-1);
   }
 }

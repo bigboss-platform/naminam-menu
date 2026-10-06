@@ -12,11 +12,12 @@ export function RadialTestContainer() {
     price: product.price,
     imageUrl: getProductImage(product.slug),
     description: product.description,
+    href: '',
   }));
 
   return (
     <div className={`${styles.page} page-fade-in`}>
-      <RadialProductSelector products={products} title="Elige tu cheesecake" />
+      <RadialProductSelector products={products} />
     </div>
   );
 }

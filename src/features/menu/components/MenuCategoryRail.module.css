@@ -1,0 +1,64 @@
+/* Fixed to the left edge, vertically centered on screen */
+.rail {
+  position: fixed;
+  left: var(--space-sm);
+  top: 50%;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  transform: translateY(-50%);
+  transition: transform 280ms ease, opacity 200ms ease;
+}
+
+/* Scrolling down: slide off to the left; scrolling up brings it back */
+.railHidden {
+  transform: translate(calc(-100% - 16px), -50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Round icon button */
+.button {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 253, 249, 0.94);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--c-cacao);
+  transition: background-color 200ms ease, color 200ms ease, transform 300ms var(--ease-spring);
+}
+
+.button :global(.material-symbols-outlined) {
+  font-size: 24px;
+}
+
+.button:active {
+  transform: scale(0.95);
+  transition: transform 100ms ease;
+}
+
+.buttonActive {
+  background: var(--c-cacao);
+  border-color: var(--c-cacao);
+  color: var(--c-card);
+}
+
+@media (min-width: 900px) {
+  .rail {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail {
+    transition: opacity 200ms ease;
+  }
+}

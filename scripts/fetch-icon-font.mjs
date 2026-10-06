@@ -12,7 +12,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 
 const ICON_NAMES = [
   'add', 'arrow_back_ios_new', 'arrow_forward', 'bakery_dining', 'cake', 'call', 'celebration',
-  'chat_bubble', 'check', 'close', 'delivery_dining', 'expand_more', 'favorite', 'home',
+  'chat_bubble', 'check', 'close', 'delete', 'delivery_dining', 'expand_more', 'favorite', 'home',
   'icecream', 'info', 'ios_share', 'location_on', 'map', 'pie_chart', 'remove',
   'restaurant', 'schedule', 'search', 'search_off', 'star', 'storefront',
 ];

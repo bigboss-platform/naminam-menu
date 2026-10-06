@@ -1,39 +1,68 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import type { RadialGeometry, RadialProduct } from '../types/RadialProduct.type';
 
 const DEFAULT_WIDTH = 390;
 /** Pixels of horizontal movement before a press becomes a drag (below this it's a tap). */
 const DRAG_THRESHOLD_PX = 6;
+/** From this component width up (tablet/desktop) the selected photo grows more. */
+const WIDE_LAYOUT_PX = 600;
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+/** Modulo that is always positive: wrapIndex(-1, 6) === 5. */
+const wrapIndex = (value: number, length: number) => ((value % length) + length) % length;
 
-function buildGeometry(viewportWidth: number): RadialGeometry {
+/** Breathing room between the photos and the component's top/bottom edges. */
+const EDGE_GAP_PX = 16;
+
+/**
+ * Ellipse + card sizes from the component width. The top of the ellipse is anchored
+ * just below the component's top edge (no dead space above the selected photo), and
+ * the height ends just below the neighbouring photos.
+ */
+function buildGeometry(viewportWidth: number, productCount: number): RadialGeometry {
   const width = Math.max(280, viewportWidth);
+  const isWide = width >= WIDE_LAYOUT_PX;
+  const cardWidth = clamp(width * 0.35, 112, 146);
+  const cardHeight = clamp(width * 0.4, 138, 166);
+  const selectedScale = isWide ? 1.7 : 1.2;
+  const unselectedScale = isWide ? 1 : 0.8;
+  // Desktop: a much wider, flatter circle. Mobile: slightly bigger than the original.
+  const radiusX = isWide ? width * 0.38 : width * 0.52;
+  const radiusY = isWide ? width * 0.2 : width * 0.4;
+
+  const centerY = EDGE_GAP_PX + (cardHeight * selectedScale) / 2 + radiusY;
+  const neighbourY = centerY - radiusY * Math.cos((2 * Math.PI) / Math.max(productCount, 1));
+  const height = neighbourY + (cardHeight * unselectedScale) / 2 + EDGE_GAP_PX * 2;
+
   return {
     width,
-    height: Math.max(245, width * 0.69),
-    radiusX: Math.min(width * 0.47, 220),
-    radiusY: Math.min(width * 0.34, 150),
+    height,
+    radiusX,
+    radiusY,
     centerX: width / 2,
-    centerY: width * 0.68,
-    cardWidth: clamp(width * 0.35, 112, 146),
-    cardHeight: clamp(width * 0.4, 138, 166),
+    centerY,
+    cardWidth,
+    cardHeight,
+    selectedScale,
+    unselectedScale,
   };
 }
 
 /**
  * State + interaction for the radial (wheel) selector: products sit on an ellipse,
- * horizontal drag rotates it, release snaps to the nearest product. Bounded — the
- * first/last product are the ends (not an infinite loop).
+ * horizontal drag rotates it, release snaps to the nearest product.
+ * Endless: the wheel keeps turning past the last product back to the first, with no
+ * jump — `step` is an unbounded position counter and the selected product is step mod n.
  */
 export function useRadialSelector(products: RadialProduct[]) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [step, setStep] = useState(0);
   const [rotation, setRotation] = useState(0);
-  const [quantity, setQuantity] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(DEFAULT_WIDTH);
+  const router = useRouter();
 
   const rootRef = useRef<HTMLDivElement>(null);
   const pressRef = useRef<{ x: number; rotation: number; pointerId: number } | null>(null);
@@ -50,15 +79,22 @@ export function useRadialSelector(products: RadialProduct[]) {
     return () => observer.disconnect();
   }, []);
 
-  const geometry = buildGeometry(viewportWidth);
-  const itemStep = 360 / Math.max(products.length, 1);
-  const lastIndex = Math.max(0, products.length - 1);
+  const productCount = Math.max(products.length, 1);
+  const geometry = buildGeometry(viewportWidth, productCount);
+  const itemStep = 360 / productCount;
+  const selectedIndex = wrapIndex(step, productCount);
 
-  const selectIndex = (index: number) => {
-    const nextIndex = clamp(index, 0, lastIndex);
-    setSelectedIndex(nextIndex);
-    rotationRef.current = -nextIndex * itemStep;
+  const goToStep = (nextStep: number) => {
+    setStep(nextStep);
+    rotationRef.current = -nextStep * itemStep;
     setRotation(rotationRef.current);
+  };
+
+  /** Turn the shortest way round to `index` (e.g. from the last product, "next" is the first). */
+  const goToIndex = (index: number) => {
+    let delta = wrapIndex(index - selectedIndex, productCount);
+    if (delta > productCount / 2) delta -= productCount;
+    goToStep(step + delta);
   };
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -90,39 +126,36 @@ export function useRadialSelector(products: RadialProduct[]) {
     pressRef.current = null;
     if (!didDragRef.current) return;
     setIsDragging(false);
-    selectIndex(Math.round(-rotationRef.current / itemStep));
+    goToStep(Math.round(-rotationRef.current / itemStep));
   };
 
+  /** Tap a side photo → turn to it. Tap the selected photo → follow its href (if any). */
   const onCardClick = (index: number) => {
     if (didDragRef.current) return;
-    selectIndex(index);
+    const tappedProduct = products[index];
+    const isAlreadySelected = index === selectedIndex;
+    if (isAlreadySelected && tappedProduct.href) {
+      router.push(tappedProduct.href);
+      return;
+    }
+    goToIndex(index);
   };
 
-  const onCardKeyDown = (key: string, index: number) => {
-    const keyTargets: Record<string, number> = {
-      ArrowRight: index + 1,
-      ArrowLeft: index - 1,
-      Home: 0,
-      End: lastIndex,
-    };
-    if (!(key in keyTargets)) return false;
-    selectIndex(keyTargets[key]);
+  const onCardKeyDown = (key: string) => {
+    const stepDeltas: Record<string, number> = { ArrowRight: 1, ArrowLeft: -1 };
+    if (!(key in stepDeltas)) return false;
+    goToStep(step + stepDeltas[key]);
     return true;
   };
-
-  const adjustQuantity = (amount: number) => setQuantity((current) => clamp(current + amount, 1, 99));
 
   return {
     rootRef,
     products,
     selectedIndex,
-    selectedProduct: products[selectedIndex],
     rotation,
     itemStep,
     geometry,
     isDragging,
-    quantity,
-    adjustQuantity,
     pointerHandlers: {
       onPointerDown,
       onPointerMove,

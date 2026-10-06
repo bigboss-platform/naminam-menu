@@ -15,7 +15,7 @@ type RadialProductCardProps = {
   index: number;
 };
 
-/** One card on the ellipse. Position + tilt come from its angle around the wheel. */
+/** One photo on the ellipse — just the picture, nothing around it. Position + tilt come from its angle. */
 export function RadialProductCard({ ctx, product, index }: RadialProductCardProps) {
   const { geometry, itemStep, rotation, selectedIndex, onCardClick, onCardKeyDown } = ctx;
   const isSelected = index === selectedIndex;
@@ -29,13 +29,15 @@ export function RadialProductCard({ ctx, product, index }: RadialProductCardProp
   const relativeAngle = (((angleDegrees + 90) % 360) + 360) % 360;
   const signedAngle = relativeAngle > 180 ? relativeAngle - 360 : relativeAngle;
   const tilt = clamp(signedAngle * 0.2, -16, 16);
+  // Selected photo is noticeably bigger than the rest (more so on desktop — see buildGeometry).
+  const scale = isSelected ? geometry.selectedScale : geometry.unselectedScale;
 
   const cardStyle: CSSProperties = {
     left: x,
     top: y,
     width: geometry.cardWidth,
     height: geometry.cardHeight,
-    transform: `translate(-50%, -50%) rotate(${tilt}deg) scale(${isSelected ? 1 : 0.92})`,
+    transform: `translate(-50%, -50%) rotate(${tilt}deg) scale(${scale})`,
     zIndex: isSelected ? 3 : 1,
   };
 
@@ -46,22 +48,14 @@ export function RadialProductCard({ ctx, product, index }: RadialProductCardProp
       style={cardStyle}
       onClick={() => onCardClick(index)}
       onKeyDown={(event) => {
-        if (onCardKeyDown(event.key, index)) event.preventDefault();
+        if (onCardKeyDown(event.key)) event.preventDefault();
       }}
       aria-pressed={isSelected}
       aria-label={`${product.name}, ${formatPrice(product.price)}`}
       tabIndex={isSelected ? 0 : -1}
     >
-      <span className={styles.imageWrap}>
-        <ProductImage src={product.imageUrl} alt={product.name} sizes="146px" />
-      </span>
-      <span className={styles.productName}>{product.name}</span>
-      <span className={styles.productPrice}>{formatPrice(product.price)}</span>
-      {isSelected && (
-        <span className={styles.selectedMark} aria-hidden="true">
-          <span className="material-symbols-outlined">check</span>
-        </span>
-      )}
+      <ProductImage src={product.imageUrl} alt={product.name} sizes="180px" className={styles.photo} />
+      <span className={styles.priceTag}>{formatPrice(product.price)}</span>
     </button>
   );
 }

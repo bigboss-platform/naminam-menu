@@ -1,4 +1,4 @@
-import type { MenuCtx } from '../hooks/useMenuFilter.hook';
+import type { MenuCtx } from '../hooks/useMenu.hook';
 import styles from './MenuEmptyState.module.css';
 
 export function MenuEmptyState({ ctx }: { ctx: MenuCtx }) {

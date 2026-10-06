@@ -7,18 +7,18 @@ import type { Product } from '../types/Product.type';
 import styles from './MenuItemCard.module.css';
 
 /**
- * Photo-first card: the photo spans the full card width. Tapping the card opens
- * WhatsApp asking if this dessert is available. Price pinned bottom-right.
+ * Photo-first card. Only its WhatsApp button opens WhatsApp (asking if the dessert is
+ * available). `id={slug}` lets the home wheel deep-link here (/menu#slug).
  */
 export function MenuItemCard({ product, index }: { product: Product; index: number }) {
   return (
-    <a
-      href={buildProductWhatsAppUrl(product.name)}
-      target="_blank"
-      rel="noopener noreferrer"
+    <article
+      id={product.slug}
+      data-menu-card
+      // Focusable from code only: the first result is focused (and pulses) after filtering
+      tabIndex={-1}
       className={`${styles.card} stagger-in`}
       style={{ '--i': index } as React.CSSProperties}
-      aria-label={`Pedir ${product.name} por WhatsApp`}
     >
       <div className={styles.media}>
         <ProductImage
@@ -34,11 +34,19 @@ export function MenuItemCard({ product, index }: { product: Product; index: numb
         <div className={styles.footer}>
           <span className={styles.note}>{product.isAddOn ? 'Complemento' : product.note}</span>
           <span className={styles.priceGroup}>
-            <WhatsAppIcon size={18} />
             <span className={styles.price}>{formatPrice(product.price)}</span>
+            <a
+              href={buildProductWhatsAppUrl(product.name)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.whatsappButton}
+              aria-label={`Pedir ${product.name} por WhatsApp`}
+            >
+              <WhatsAppIcon size={24} />
+            </a>
           </span>
         </div>
       </div>
-    </a>
+    </article>
   );
 }

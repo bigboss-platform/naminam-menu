@@ -1,14 +1,17 @@
 'use client';
 
-import type { MenuCtx } from '../hooks/useMenuFilter.hook';
+import type { MenuCtx } from '../hooks/useMenu.hook';
 import styles from './MenuToolbar.module.css';
 
-/** Sticky search + category pills. Pills scroll horizontally, never wrap. */
+/**
+ * Desktop/tablet only (mobile uses MenuCategoryRail + the search button/drawer).
+ * Sticky search + category pills; slides away while scrolling down.
+ */
 export function MenuToolbar({ ctx }: { ctx: MenuCtx }) {
-  const { query, setQuery, pills, activeFilter, setActiveFilter } = ctx;
+  const { query, setQuery, pills, activeFilter, toggleCategory, isFiltersHidden } = ctx;
 
   return (
-    <div className={styles.toolbar}>
+    <div className={`${styles.toolbar} ${isFiltersHidden ? styles.toolbarHidden : ''}`}>
       <label className={styles.search}>
         <span className="material-symbols-outlined">search</span>
         <span className="visually-hidden">Buscar en el menú</span>
@@ -28,17 +31,16 @@ export function MenuToolbar({ ctx }: { ctx: MenuCtx }) {
         )}
       </label>
 
-      <div className={styles.pills} role="tablist" aria-label="Categorías">
+      <div className={styles.pills} role="group" aria-label="Categorías">
         {pills.map((pill) => {
           const isActive = pill.id === activeFilter;
           return (
             <button
               key={pill.id}
               type="button"
-              role="tab"
-              aria-selected={isActive}
+              aria-pressed={isActive}
               className={`${styles.pill} ${isActive ? styles.pillActive : ''}`}
-              onClick={() => setActiveFilter(pill.id)}
+              onClick={() => toggleCategory(pill.id)}
             >
               {pill.label}
             </button>
