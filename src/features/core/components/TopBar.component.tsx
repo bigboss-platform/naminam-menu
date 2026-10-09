@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_TABS, isTabActive } from '../config/nav.constants';
-import { buildWhatsAppUrl, GENERAL_WHATSAPP_MESSAGE } from '../utils/whatsapp.util';
+import { useSiteSettings } from '../context/SiteSettings.context';
+import { buildInstagramUrl, buildWhatsAppUrl, GENERAL_WHATSAPP_MESSAGE } from '../utils/whatsapp.util';
 import { BrandLogo } from './BrandLogo.component';
-import { INSTAGRAM_URL } from '../config/business.config';
 import { InstagramIcon, WhatsAppIcon } from './BrandIcons.component';
 import styles from './TopBar.module.css';
 
@@ -15,7 +15,8 @@ import styles from './TopBar.module.css';
  */
 export function TopBar() {
   const pathname = usePathname();
-  const whatsappUrl = buildWhatsAppUrl(GENERAL_WHATSAPP_MESSAGE);
+  const { whatsappNumber, instagramHandle } = useSiteSettings();
+  const whatsappUrl = buildWhatsAppUrl(whatsappNumber, GENERAL_WHATSAPP_MESSAGE);
 
   return (
     <header className={styles.topBar}>
@@ -46,7 +47,7 @@ export function TopBar() {
         {/* Mobile only — on desktop these live in the floating buttons (FloatingContactButtons) */}
         <div className={styles.mobileActions}>
           <a
-            href={INSTAGRAM_URL}
+            href={buildInstagramUrl(instagramHandle)}
             target="_blank"
             rel="noopener noreferrer"
             className={`${styles.iconLink} ${styles.instagram}`}

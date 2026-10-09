@@ -5,6 +5,17 @@ import { useState } from 'react';
 import { BrandLogo } from './BrandLogo.component';
 import styles from './ProductImage.module.css';
 
+/** Hosts allowed in next.config.ts images.remotePatterns — other hosts are shown as-is (unoptimized). */
+const OPTIMIZED_HOSTS = ['images.unsplash.com', 'res.cloudinary.com'];
+
+function canOptimize(src: string): boolean {
+  try {
+    return OPTIMIZED_HOSTS.includes(new URL(src).hostname);
+  } catch {
+    return false;
+  }
+}
+
 type ProductImageProps = {
   src: string;
   alt: string;
@@ -37,6 +48,7 @@ export function ProductImage({ src, alt, sizes, priority = false, className = ''
           fill
           sizes={sizes}
           priority={priority}
+          unoptimized={!canOptimize(src)}
           className={`${styles.image} ${isLoaded ? styles.imageLoaded : ''}`}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasFailed(true)}

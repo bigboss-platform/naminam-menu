@@ -1,23 +1,25 @@
 import Link from 'next/link';
 import { ProductImage } from '@/features/core/components/ProductImage.component';
-import { BUSINESS } from '@/features/core/config/business.config';
-import { SITE_MEDIA } from '@/features/core/config/media.config';
+import type { SiteSettings } from '@/features/core/types/SiteData.type';
 import styles from './HomeHero.module.css';
 
-export function HomeHero() {
+/** Cover photo + address come from the back office ("Negocio" → Marca y portada / Ubicación). */
+export function HomeHero({ settings }: { settings: SiteSettings }) {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
       <Link href="/menu" className={styles.media} aria-label="Ver el menú">
         <ProductImage
-          src={SITE_MEDIA.hero}
+          src={settings.heroImageUrl}
           alt="Porción de torta de chocolate de Ñami Ñam"
           sizes="(min-width: 900px) 480px, 100vw"
           priority
         />
-        <span className={styles.mediaChip}>
-          <span className="material-symbols-outlined">location_on</span>
-          {BUSINESS.address}
-        </span>
+        {settings.address && (
+          <span className={styles.mediaChip}>
+            <span className="material-symbols-outlined">location_on</span>
+            {settings.address}
+          </span>
+        )}
       </Link>
 
       <div className={styles.copy}>

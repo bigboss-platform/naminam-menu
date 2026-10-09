@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { RadialTestContainer } from '@/features/radial-selector/containers/RadialTestContainer.container';
+import { getSiteData } from '@/server/siteData';
 
 /** Playground for components under evaluation — not linked from the navigation. */
 export const metadata: Metadata = {
@@ -7,6 +8,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function TestPage() {
-  return <RadialTestContainer />;
+export const revalidate = 60;
+
+export default async function TestPage() {
+  const { products } = await getSiteData();
+  return <RadialTestContainer products={products.filter((product) => product.categoryId === 'cheesecake')} />;
 }

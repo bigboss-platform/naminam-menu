@@ -8,10 +8,11 @@ import { MenuSection } from '../components/MenuSection.component';
 import { MenuSkeleton } from '../components/MenuSkeleton.component';
 import { MenuToolbar } from '../components/MenuToolbar.component';
 import { useMenu } from '../hooks/useMenu.hook';
+import type { Category, Product } from '../types/Product.type';
 import styles from './MenuContainer.module.css';
 
-export function MenuContainer() {
-  const ctx = useMenu();
+export function MenuContainer({ products, categories }: { products: Product[]; categories: Category[] }) {
+  const ctx = useMenu(products, categories);
   return (
     <>
       <div className={`${styles.page} page-fade-in`}>

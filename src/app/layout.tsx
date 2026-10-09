@@ -5,6 +5,8 @@ import { BottomNav } from '@/features/core/components/BottomNav.component';
 import { FloatingContactButtons } from '@/features/core/components/FloatingContactButtons.component';
 import { Footer } from '@/features/core/components/Footer.component';
 import { TopBar } from '@/features/core/components/TopBar.component';
+import { SiteSettingsProvider } from '@/features/core/context/SiteSettings.context';
+import { getSiteData } from '@/server/siteData';
 import './globals.css';
 
 const displayFont = Vollkorn({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
@@ -39,15 +41,21 @@ export const viewport: Viewport = {
   themeColor: '#fdf6f0',
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+/** Pages are static and refresh at most every 60s (plus instantly via /api/revalidate from the back office). */
+export const revalidate = 60;
+
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const { settings } = await getSiteData();
   return (
     <html lang="es" className={`${displayFont.variable} ${sansFont.variable} ${iconFont.variable} ${iconFilledFont.variable}`}>
       <body>
-        <TopBar />
-        <main>{children}</main>
-        <Footer />
-        <BottomNav />
-        <FloatingContactButtons />
+        <SiteSettingsProvider settings={settings}>
+          <TopBar />
+          <main>{children}</main>
+          <Footer settings={settings} />
+          <BottomNav />
+          <FloatingContactButtons />
+        </SiteSettingsProvider>
       </body>
     </html>
   );

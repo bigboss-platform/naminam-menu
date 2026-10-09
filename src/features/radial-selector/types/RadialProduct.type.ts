@@ -1,8 +1,13 @@
+import type { MediaType } from '@/features/menu/types/Product.type';
+
 export type RadialProduct = {
   id: string;
   name: string;
   price: number;
-  imageUrl: string;
+  mediaType: MediaType;
+  /** Photo or video link (see ProductMedia). */
+  mediaUrl: string;
+  posterUrl: string;
   description: string;
   /** Where tapping the already-selected photo goes (e.g. "/menu#matilda"). Empty = nowhere. */
   href: string;

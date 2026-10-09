@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { CATEGORIES, PRODUCTS } from '../data/menu.data';
 import type { Category, Product } from '../types/Product.type';
 import { useFilterTransition } from './useFilterTransition.hook';
 
@@ -16,14 +15,15 @@ function normalize(text: string): string {
   return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 }
 
-export function useMenuFilter() {
+/** Products + categories come from the server (back office data, see src/server/siteData.ts). */
+export function useMenuFilter(products: Product[], categories: Category[]) {
   const [query, setQueryState] = useState('');
   const [activeFilter, setActiveFilter] = useState<MenuFilterId>('todos');
   // Every filter/search change: scroll to top → brief skeleton → first card centered + focused.
   const { isFiltering, startFilterTransition } = useFilterTransition();
 
   // No "Todos" option: with nothing selected the whole menu shows.
-  const pills: MenuPill[] = CATEGORIES.map((category) => ({ id: category.id, label: category.label }));
+  const pills: MenuPill[] = categories.map((category) => ({ id: category.id, label: category.label }));
 
   /** Tap a category to filter; tap the selected one again to go back to everything. */
   const toggleCategory = (categoryId: MenuFilterId) => {
@@ -43,9 +43,9 @@ export function useMenuFilter() {
     normalize(`${product.name} ${product.note} ${product.description}`).includes(normalizedQuery);
   const matchesFilter = (product: Product) => activeFilter === 'todos' || product.categoryId === activeFilter;
 
-  const sections: MenuSectionData[] = CATEGORIES.map((category) => ({
+  const sections: MenuSectionData[] = categories.map((category) => ({
     category,
-    products: PRODUCTS.filter(
+    products: products.filter(
       (product) => product.categoryId === category.id && matchesFilter(product) && matchesQuery(product),
     ),
   })).filter((section) => section.products.length > 0);

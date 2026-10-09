@@ -1,7 +1,7 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { ProductImage } from '@/features/core/components/ProductImage.component';
+import { ProductMedia } from '@/features/core/components/ProductMedia.component';
 import { formatPrice } from '@/features/core/utils/format.util';
 import type { RadialSelectorCtx } from '../hooks/useRadialSelector.hook';
 import type { RadialProduct } from '../types/RadialProduct.type';
@@ -54,7 +54,14 @@ export function RadialProductCard({ ctx, product, index }: RadialProductCardProp
       aria-label={`${product.name}, ${formatPrice(product.price)}`}
       tabIndex={isSelected ? 0 : -1}
     >
-      <ProductImage src={product.imageUrl} alt={product.name} sizes="180px" className={styles.photo} />
+      <ProductMedia
+        mediaType={product.mediaType}
+        mediaUrl={product.mediaUrl}
+        posterUrl={product.posterUrl}
+        alt={product.name}
+        sizes="180px"
+        className={styles.photo}
+      />
       <span className={styles.priceTag}>{formatPrice(product.price)}</span>
     </button>
   );

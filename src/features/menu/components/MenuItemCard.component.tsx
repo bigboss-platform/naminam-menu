@@ -1,6 +1,8 @@
+'use client';
+
 import { WhatsAppIcon } from '@/features/core/components/BrandIcons.component';
-import { ProductImage } from '@/features/core/components/ProductImage.component';
-import { getProductImage } from '@/features/core/config/media.config';
+import { ProductMedia } from '@/features/core/components/ProductMedia.component';
+import { useSiteSettings } from '@/features/core/context/SiteSettings.context';
 import { formatPrice } from '@/features/core/utils/format.util';
 import { buildProductWhatsAppUrl } from '@/features/core/utils/whatsapp.util';
 import type { Product } from '../types/Product.type';
@@ -11,6 +13,7 @@ import styles from './MenuItemCard.module.css';
  * available). `id={slug}` lets the home wheel deep-link here (/menu#slug).
  */
 export function MenuItemCard({ product, index }: { product: Product; index: number }) {
+  const { whatsappNumber } = useSiteSettings();
   return (
     <article
       id={product.slug}
@@ -21,8 +24,10 @@ export function MenuItemCard({ product, index }: { product: Product; index: numb
       style={{ '--i': index } as React.CSSProperties}
     >
       <div className={styles.media}>
-        <ProductImage
-          src={getProductImage(product.slug)}
+        <ProductMedia
+          mediaType={product.mediaType}
+          mediaUrl={product.mediaUrl}
+          posterUrl={product.posterUrl}
           alt={product.name}
           sizes="(min-width: 1100px) 280px, (min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw"
         />
@@ -36,7 +41,7 @@ export function MenuItemCard({ product, index }: { product: Product; index: numb
           <span className={styles.priceGroup}>
             <span className={styles.price}>{formatPrice(product.price)}</span>
             <a
-              href={buildProductWhatsAppUrl(product.name)}
+              href={buildProductWhatsAppUrl(whatsappNumber, product.name)}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.whatsappButton}

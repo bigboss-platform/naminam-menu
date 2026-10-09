@@ -3,6 +3,9 @@
 import type { MenuCtx } from '../hooks/useMenu.hook';
 import styles from './MenuCategoryRail.module.css';
 
+/** Categories created later in the back office get this icon. */
+const DEFAULT_CATEGORY_ICON = 'cake';
+
 /** Icon per category for the round rail buttons (experiment — text labels were the previous version). */
 const CATEGORY_ICONS: Record<string, string> = {
   racion: 'cake',
@@ -36,7 +39,7 @@ export function MenuCategoryRail({ ctx }: { ctx: MenuCtx }) {
             onClick={() => toggleCategory(pill.id)}
           >
             <span className={`material-symbols-outlined ${isActive ? 'icon-filled' : ''}`}>
-              {CATEGORY_ICONS[pill.id]}
+              {CATEGORY_ICONS[pill.id] ?? DEFAULT_CATEGORY_ICON}
             </span>
           </button>
         );

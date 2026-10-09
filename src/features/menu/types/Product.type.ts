@@ -1,4 +1,5 @@
-export type CategoryId = 'racion' | 'sbriciolata' | 'cheesecake';
+/** Category slug ("racion", "cheesecake", …) — the back office can create new ones. */
+export type CategoryId = string;
 
 export type Category = {
   id: CategoryId;
@@ -7,13 +8,15 @@ export type Category = {
   tagline: string;
 };
 
+export type MediaType = 'image' | 'video';
+
 export type Product = {
   slug: string;
   name: string;
   categoryId: CategoryId;
   /** USD, as listed by the client. */
   price: number;
-  /** One or two sentences — shown on cards (clamped) and on the detail page. */
+  /** One or two sentences — shown on cards (clamped). */
   description: string;
   /** Short tasting note shown under the name in the menu list. */
   note: string;
@@ -23,16 +26,24 @@ export type Product = {
   isFeatured: boolean;
   /** Add-ons ("Extra de helado") are listed but not sold on their own. */
   isAddOn: boolean;
+  mediaType: MediaType;
+  /** Public photo/video link (set in the back office). Empty = branded placeholder. */
+  mediaUrl: string;
+  /** Video cover image. */
+  posterUrl: string;
 };
 
 export const EMPTY_PRODUCT: Product = {
   slug: '',
   name: '',
-  categoryId: 'racion',
+  categoryId: '',
   price: 0,
   description: '',
   note: '',
   badge: '',
   isFeatured: false,
   isAddOn: false,
+  mediaType: 'image',
+  mediaUrl: '',
+  posterUrl: '',
 };

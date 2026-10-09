@@ -1,7 +1,12 @@
 import type { Category, Product } from '../types/Product.type';
 
+/** Static menu entries — media comes from core/config/media.config.ts (see fallbackSiteData). */
+export type StaticProduct = Omit<Product, 'mediaType' | 'mediaUrl' | 'posterUrl'>;
+
 /**
- * Menu — names and prices exactly as provided by the client (naminam/naminam.md).
+ * FALLBACK menu — used only when the site runs without MongoDB (no MONGODB_URI).
+ * The live menu is managed in the back office (naminam/backoffice-app) and read by
+ * src/server/siteData.ts. Names and prices exactly as provided by the client (naminam/naminam.md).
  * Do NOT add products that are not on that list. Descriptions/notes are draft
  * copy to be confirmed by the client.
  */
@@ -12,7 +17,7 @@ export const CATEGORIES: Category[] = [
   { id: 'cheesecake', label: 'Cheesecake', tagline: 'Cremosos, horneados lento sobre base de galleta.' },
 ];
 
-export const PRODUCTS: Product[] = [
+export const PRODUCTS: StaticProduct[] = [
   // ── Postre ──
   { slug: 'matilda', name: 'Matilda', categoryId: 'racion', price: 7, note: 'Chocolate intenso', badge: 'Favorito de la casa', isFeatured: true, isAddOn: false,
     description: 'Bizcocho húmedo de chocolate oscuro, en capas con ganache aterciopelado.' },
@@ -58,18 +63,3 @@ export const PRODUCTS: Product[] = [
     description: 'Base de brownie y trozos de brownie horneados dentro del cheesecake.' },
 ];
 
-export function getProductBySlug(slug: string): Product | undefined {
-  return PRODUCTS.find((product) => product.slug === slug);
-}
-
-export function getProductsByCategory(categoryId: string): Product[] {
-  return PRODUCTS.filter((product) => product.categoryId === categoryId);
-}
-
-export function getFeaturedProducts(): Product[] {
-  return PRODUCTS.filter((product) => product.isFeatured);
-}
-
-export function getCategoryLabel(categoryId: string): string {
-  return CATEGORIES.find((category) => category.id === categoryId)?.label ?? '';
-}
