@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+  /* the drop shadow below the drips may spill a little — don't let it add a scrollbar */
+  overflow: hidden;
+  line-height: 0;
+}
+
+.divider {
+  display: block;
+  width: 100%;
+}
