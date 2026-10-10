@@ -22,7 +22,8 @@ export function HomeHero({ settings }: { settings: SiteSettings }) {
         )}
       </Link>
 
-      <div className={styles.copy}>
+      {/* section-band: paper band in the "torn" section theme (globals.css) */}
+      <div className={`${styles.copy} section-band`}>
         <h1 id="hero-title" className={`${styles.title} font-display`}>
           Un poquito de felicidad en cada bocado.
         </h1>

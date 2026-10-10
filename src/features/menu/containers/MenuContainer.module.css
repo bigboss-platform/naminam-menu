@@ -27,3 +27,9 @@
     padding-top: var(--space-2xl);
   }
 }
+
+/* Section theme "torn": the footer starts right after the content with a torn edge — keep
+   room so the edge never covers the last menu card */
+:global([data-section-theme='torn']) .page {
+  padding-bottom: var(--space-2xl);
+}

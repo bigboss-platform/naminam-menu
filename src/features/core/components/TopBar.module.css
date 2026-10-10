@@ -7,6 +7,18 @@
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   border-bottom: 1px solid var(--c-border);
+  transition: transform 280ms ease;
+}
+
+/* Menú, scrolling down: slide up out of view (useHideOnScroll); scrolling up brings it back */
+.topBarHidden {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topBar {
+    transition: none;
+  }
 }
 
 .inner {

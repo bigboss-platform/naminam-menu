@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
     return [
       { source: '/contacto', destination: '/', permanent: true },
       { source: '/menu/:slug', destination: '/menu', permanent: true },
+      // Section theme comparison pages, also reachable without the dash
+      { source: '/testmoderno', destination: '/test-moderno', permanent: false },
+      { source: '/testrasgado', destination: '/test-rasgado', permanent: false },
     ];
   },
   images: {

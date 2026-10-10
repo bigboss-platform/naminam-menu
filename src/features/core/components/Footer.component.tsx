@@ -19,7 +19,25 @@ export function Footer({ settings }: { settings: SiteSettings }) {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <div className={styles.column}>
+        {/* Order: Horarios → Llamar → Ubicación (audit 2026-10-10).
+            section-band: each block is a paper band in the "torn" section theme (globals.css) */}
+        {settings.hours.length > 0 && (
+          <div className={`${styles.column} ${styles.hoursColumn} section-band`}>
+            <h2 className={`${styles.columnTitle} font-display`}>Horarios</h2>
+            <ul className={styles.hoursList}>
+              {settings.hours.map((row) => (
+                <li key={row.label} className={styles.hoursRow}>
+                  <span className={styles.hoursDay}>{row.label}</span>
+                  <span>
+                    {formatHour(row.opensAt)} – {formatHour(row.closesAt)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className={`${styles.column} ${styles.contactColumn} section-band`}>
           <div className={styles.brand}>
             <BrandLogo height={64} />
             <span className={styles.tagline}>{settings.tagline}</span>
@@ -35,23 +53,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           )}
         </div>
 
-        {settings.hours.length > 0 && (
-          <div className={styles.column}>
-            <h2 className={`${styles.columnTitle} font-display`}>Horarios</h2>
-            <ul className={styles.hoursList}>
-              {settings.hours.map((row) => (
-                <li key={row.label} className={styles.hoursRow}>
-                  <span className={styles.hoursDay}>{row.label}</span>
-                  <span>
-                    {formatHour(row.opensAt)} – {formatHour(row.closesAt)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.locationColumn} section-band`}>
           <h2 className={`${styles.columnTitle} font-display`}>Ubicación</h2>
           {fullAddress && (
             <p className={styles.address}>

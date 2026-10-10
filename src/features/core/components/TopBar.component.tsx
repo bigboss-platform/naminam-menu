@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_TABS, isTabActive } from '../config/nav.constants';
 import { useSiteSettings } from '../context/SiteSettings.context';
+import { MENU_CONTROLS_IDLE_HIDE_MS, useHideOnScroll } from '../hooks/useHideOnScroll.hook';
 import { buildInstagramUrl, buildWhatsAppUrl, GENERAL_WHATSAPP_MESSAGE } from '../utils/whatsapp.util';
 import { BrandLogo } from './BrandLogo.component';
 import { InstagramIcon, WhatsAppIcon } from './BrandIcons.component';
@@ -17,9 +18,12 @@ export function TopBar() {
   const pathname = usePathname();
   const { whatsappNumber, instagramHandle } = useSiteSettings();
   const whatsappUrl = buildWhatsAppUrl(whatsappNumber, GENERAL_WHATSAPP_MESSAGE);
+  // Menú: slides away while scrolling down or after 2s idle, back on scroll up — same as the menu filters.
+  const isMenu = isTabActive(pathname, '/menu');
+  const isHidden = useHideOnScroll(isMenu ? MENU_CONTROLS_IDLE_HIDE_MS : 0) && isMenu;
 
   return (
-    <header className={styles.topBar}>
+    <header className={`${styles.topBar} ${isHidden ? styles.topBarHidden : ''}`}>
       <div className={styles.inner}>
         {/* ── Mobile ── */}
         <div className={styles.mobileLeft}>

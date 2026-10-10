@@ -72,6 +72,32 @@
   max-width: 40ch;
 }
 
+/* ── Section theme "modern": a little more air above the photo ── */
+:global([data-section-theme='modern']) .hero {
+  padding-top: var(--space-20);
+}
+
+/* ── Section theme "torn" (phones/tablets): the text below the photo is a full-width paper
+   band whose torn top edge bites into the photo's bottom ── */
+@media (max-width: 899px) {
+  :global([data-section-theme='torn']) .hero {
+    gap: 0;
+    padding-top: var(--space-20);
+  }
+
+  :global([data-section-theme='torn']) .copy {
+    --band-bg: var(--c-paper);
+    /* full width: stretch the band to the screen edges, keep the text on the page's column */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  /* The torn edge covers the photo's bottom ~14px — lift the address chip clear of it */
+  :global([data-section-theme='torn']) .mediaChip {
+    bottom: calc(var(--tear-height) + var(--space-12));
+  }
+}
+
 @media (min-width: 900px) {
   .hero {
     flex-direction: row-reverse;
@@ -88,5 +114,15 @@
   .copy {
     flex: 1;
     gap: var(--space-md);
+  }
+
+  /* Torn on desktop: the hero stays a two-column layout — the text is not a band */
+  :global([data-section-theme='torn']) .copy {
+    background: none;
+    padding: 0;
+  }
+
+  :global([data-section-theme='torn']) .copy::before {
+    display: none;
   }
 }

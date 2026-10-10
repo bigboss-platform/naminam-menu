@@ -17,10 +17,10 @@ export function FeaturedSection({ products }: { products: Product[] }) {
   );
 
   return (
-    <section className={styles.section} aria-labelledby="featured-title">
+    // section-band: paper band in the "torn" section theme (globals.css)
+    <section className={`${styles.section} section-band`} aria-labelledby="featured-title">
       <SectionHeader
         id="featured-title"
-        eyebrow="Los más pedidos"
         title="Nuestros favoritos"
         aside={
           <Link href="/menu" className={styles.seeAll}>

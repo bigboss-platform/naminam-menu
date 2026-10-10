@@ -64,6 +64,17 @@
   --content-max: 1180px;
 
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Section themes (data-section-theme on <html>) — see "Section themes" below */
+  --c-paper: #fffaf3;
+  --c-paper-pink: #f7e4e5;
+  --c-paper-sand: #f8eee7;
+  --tear-height: 14px;
+  /* Jagged top edge of a torn paper band (drawn ABOVE the band, over the section before it) */
+  --tear-clip: polygon(0 62%, 4% 30%, 9% 72%, 13% 24%, 18% 66%, 23% 34%, 29% 76%, 34% 40%, 40% 70%, 45% 26%, 51% 64%, 57% 30%, 63% 74%, 68% 36%, 74% 68%, 79% 28%, 85% 72%, 90% 34%, 95% 66%, 100% 40%, 100% 100%, 0 100%);
+  /* Breathing room inside a band: always more than --tear-height, so a tear only ever covers padding */
+  --band-padding-top: 32px;
+  --band-padding-bottom: 36px;
 }
 
 @media (min-width: 768px) {
@@ -194,6 +205,35 @@ img {
 .icon-filled {
   /* filled glyphs live in a second static subset font — see scripts/fetch-icon-font.mjs */
   font-family: var(--font-icons-filled);
+}
+
+/*
+ * Section themes — how home sections are separated. Set by data-section-theme on <html>
+ * (layout.tsx, NEXT_PUBLIC_SECTION_THEME): "classic" (original), "modern" (cards), "torn"
+ * (paper bands). Themes only change separation, spacing, cards and band colors — never the
+ * content or the wheel. Each component styles its own parts with :global([data-section-theme=…]).
+ *
+ * Torn: an element with .section-band becomes a paper band (color from --band-bg) whose torn
+ * top edge is drawn above it, over the previous section's bottom padding.
+ */
+[data-section-theme='torn'] .section-band {
+  position: relative;
+  background: var(--band-bg, var(--c-paper));
+  padding-top: var(--band-padding-top);
+  padding-bottom: var(--band-padding-bottom);
+}
+
+[data-section-theme='torn'] .section-band::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% - 1px);
+  height: var(--tear-height);
+  background: var(--band-bg, var(--c-paper));
+  clip-path: var(--tear-clip);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* UI/UX audit helpers — UiDebugTag (only rendered with NEXT_PUBLIC_UI_DEBUG=true) */

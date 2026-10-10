@@ -1,0 +1,33 @@
+/* Local comparison tool — top-left, under the top bar, out of the way of content edges */
+.switcher {
+  position: fixed;
+  left: var(--space-sm);
+  top: calc(var(--top-bar-height) + env(safe-area-inset-top) + var(--space-sm));
+  z-index: 60;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius);
+  background: rgba(37, 15, 3, 0.85);
+  box-shadow: var(--shadow-2);
+}
+
+.option {
+  min-height: 32px;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: rgba(255, 253, 249, 0.75);
+}
+
+.optionActive {
+  background: var(--c-card);
+  color: var(--c-cacao);
+}
+
+@media (min-width: 900px) {
+  .switcher {
+    top: calc(72px + env(safe-area-inset-top) + var(--space-sm));
+  }
+}

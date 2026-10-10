@@ -4,7 +4,9 @@ import localFont from 'next/font/local';
 import { BottomNav } from '@/features/core/components/BottomNav.component';
 import { FloatingContactButtons } from '@/features/core/components/FloatingContactButtons.component';
 import { Footer } from '@/features/core/components/Footer.component';
+import { ThemeSwitcher } from '@/features/core/components/ThemeSwitcher.component';
 import { TopBar } from '@/features/core/components/TopBar.component';
+import { SECTION_THEME } from '@/features/core/config/sectionTheme.config';
 import { SiteSettingsProvider } from '@/features/core/context/SiteSettings.context';
 import { getSiteData } from '@/server/siteData';
 import './globals.css';
@@ -47,7 +49,13 @@ export const revalidate = 60;
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { settings } = await getSiteData();
   return (
-    <html lang="es" className={`${displayFont.variable} ${sansFont.variable} ${iconFont.variable} ${iconFilledFont.variable}`}>
+    <html
+      lang="es"
+      data-section-theme={SECTION_THEME}
+      // /test-moderno and /test-rasgado swap the theme before hydration (SectionThemeScope)
+      suppressHydrationWarning
+      className={`${displayFont.variable} ${sansFont.variable} ${iconFont.variable} ${iconFilledFont.variable}`}
+    >
       <body>
         <SiteSettingsProvider settings={settings}>
           <TopBar />
@@ -55,6 +63,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <Footer settings={settings} />
           <BottomNav />
           <FloatingContactButtons />
+          <ThemeSwitcher />
         </SiteSettingsProvider>
       </body>
     </html>

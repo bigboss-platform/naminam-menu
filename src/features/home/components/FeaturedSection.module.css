@@ -1,5 +1,8 @@
+/* Extra separation above and below the wheel section (audit 2026-10-10): 32 + 20 on top,
+   20 + 20 below. The "torn" theme keeps its band padding on top. */
 .section {
-  padding-top: var(--space-xl);
+  padding-top: calc(var(--space-xl) + var(--space-20));
+  margin-bottom: calc(var(--space-20) * 2);
 }
 
 .seeAll {
@@ -8,4 +11,12 @@
   min-height: 44px;
   font-weight: 700;
   color: var(--c-fresa-deep);
+}
+
+/* ── Section theme "torn": a full-width pink paper band. The wheel inside keeps exactly the
+   same width as before (the padding puts its content back on the page's column). ── */
+:global([data-section-theme='torn']) .section {
+  --band-bg: var(--c-paper-pink);
+  margin-inline: calc(50% - 50vw);
+  padding-inline: calc((100vw - min(100vw, var(--content-max))) / 2 + var(--gutter));
 }

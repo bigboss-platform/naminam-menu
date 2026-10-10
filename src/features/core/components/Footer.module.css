@@ -148,3 +148,100 @@
     display: inline;
   }
 }
+
+/* ── Section theme "modern": no band — each block (contact, hours, location) is a soft card
+   on the page background, with consistent spacing ── */
+:global([data-section-theme='modern']) .footer {
+  margin-top: var(--space-xl);
+  padding-top: 0;
+  background: none;
+  border-top: none;
+}
+
+:global([data-section-theme='modern']) .inner {
+  gap: var(--space-md);
+}
+
+:global([data-section-theme='modern']) .column {
+  padding: var(--space-20);
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-1);
+}
+
+/* Hours rows sit on a card now — tint them so they still read as rows */
+:global([data-section-theme='modern']) .hoursRow {
+  background: var(--c-chip);
+}
+
+/* ── Section theme "torn": on phones/tablets each block is its own full-width paper band
+   (sand → pink → paper), torn edges between them; on desktop the whole footer is one band ── */
+:global([data-section-theme='torn']) .footer {
+  margin-top: 0;
+  padding-top: 0;
+  background: none;
+  border-top: none;
+}
+
+:global([data-section-theme='torn']) .inner {
+  gap: 0;
+}
+
+:global([data-section-theme='torn']) .column {
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+
+/* Bands alternate after the pink favorites band: Horarios sand → Llamar pink → Ubicación paper */
+:global([data-section-theme='torn']) .hoursColumn {
+  --band-bg: var(--c-paper-sand);
+}
+
+:global([data-section-theme='torn']) .contactColumn {
+  --band-bg: var(--c-paper-pink);
+}
+
+:global([data-section-theme='torn']) .locationColumn {
+  --band-bg: var(--c-paper);
+}
+
+@media (min-width: 900px) {
+  :global([data-section-theme='modern']) .inner {
+    gap: var(--space-lg);
+  }
+
+  :global([data-section-theme='torn']) .footer {
+    --band-bg: var(--c-paper-sand);
+    position: relative;
+    padding-top: var(--band-padding-top);
+    background: var(--band-bg);
+  }
+
+  :global([data-section-theme='torn']) .footer::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% - 1px);
+    height: var(--tear-height);
+    background: var(--band-bg);
+    clip-path: var(--tear-clip);
+    pointer-events: none;
+  }
+
+  :global([data-section-theme='torn']) .inner {
+    gap: var(--space-2xl);
+  }
+
+  /* One band for the whole footer — the blocks are plain columns inside it */
+  :global([data-section-theme='torn']) .column {
+    margin-inline: 0;
+    padding: 0;
+    background: none;
+  }
+
+  :global([data-section-theme='torn']) .column::before {
+    display: none;
+  }
+}

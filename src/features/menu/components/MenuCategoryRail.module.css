@@ -12,11 +12,13 @@
   transition: transform 280ms ease, opacity 200ms ease;
 }
 
-/* Scrolling down: slide off to the left; scrolling up brings it back */
-.railHidden {
-  transform: translate(calc(-100% - 16px), -50%);
+/* Hidden (scrolling down / idle): the buttons slide off to the left — except the selected
+   category, which stays in place so the active filter is always visible (audit 2026-10-10) */
+.railHidden .button:not(.buttonActive) {
+  transform: translateX(calc(-100% - 16px));
   opacity: 0;
   pointer-events: none;
+  transition: transform 280ms ease, opacity 200ms ease;
 }
 
 /* Round icon button */
@@ -33,7 +35,11 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--c-cacao);
-  transition: background-color 200ms ease, color 200ms ease, transform 300ms var(--ease-spring);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    transform 300ms var(--ease-spring),
+    opacity 200ms ease;
 }
 
 .button :global(.material-symbols-outlined) {
@@ -58,7 +64,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rail {
+  .button,
+  .railHidden .button:not(.buttonActive) {
     transition: opacity 200ms ease;
   }
 }

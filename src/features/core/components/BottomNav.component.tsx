@@ -3,13 +3,17 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { isTabActive, NAV_TABS } from '../config/nav.constants';
+import { MENU_CONTROLS_IDLE_HIDE_MS, useHideOnScroll } from '../hooks/useHideOnScroll.hook';
 import styles from './BottomNav.module.css';
 
 /** iOS-style tab bar — mobile/tablet only, hidden on desktop (top nav takes over). */
 export function BottomNav() {
   const pathname = usePathname();
+  // Menú: slides away while scrolling down or after 2s idle, back on scroll up — same as the menu filters.
+  const isMenu = isTabActive(pathname, '/menu');
+  const isHidden = useHideOnScroll(isMenu ? MENU_CONTROLS_IDLE_HIDE_MS : 0) && isMenu;
   return (
-    <nav className={styles.bottomNav} aria-label="Secciones">
+    <nav className={`${styles.bottomNav} ${isHidden ? styles.bottomNavHidden : ''}`} aria-label="Secciones">
       {NAV_TABS.map((tab) => {
         const isActive = isTabActive(pathname, tab.href);
         return (
