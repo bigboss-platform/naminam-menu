@@ -17,24 +17,34 @@
 
 /*
  * The divider drawing is stretched to the screen (preserveAspectRatio none) and the browser
- * anti-aliases its top edge, letting the backdrop bleed through as a hairline. The drawing's
- * top ~12px (20 of 120 units at 70px) is solid icing, so the backdrop only needs to start
- * below it — the top edge then sits on the color above it and the seam disappears.
+ * anti-aliases its top edge, letting the backdrop bleed through as a hairline. The top 2px
+ * of the backdrop take the color above instead, so the seam disappears. Kept to 2px: the
+ * smooth models start at the top-left corner, where a taller strip would show.
  */
 .icingStart {
   /* Space between the hero text and where it starts to melt */
   margin-top: var(--space-xl);
-  background: linear-gradient(var(--c-bg) 0 8px, var(--c-icing) 8px);
+  background: linear-gradient(var(--c-bg) 0 2px, var(--c-icing) 2px);
 }
 
 /* Same seam fix for the pink divider: its top edge sits on the pink band above it */
 .icingEnd {
-  background: linear-gradient(var(--c-icing) 0 8px, transparent 8px);
+  background: linear-gradient(var(--c-icing) 0 2px, transparent 2px);
 }
 
 /* The pink band: content back on the page's column (same width as before → the wheel is
    unchanged); flow-root keeps the wheel section's own margins inside the band (no cream gaps) */
 .icingBand {
+  /* Text tones picked for the icing pink (audit 2026-10-10): both pass AA on #eebdb6 */
+  --section-title-color: #431d11;
+  --see-all-color: #653c34;
+  /* "Nuestros favoritos" as big as the hero headline (--font-size-3xl: 36px, 48px from 768px) */
+  --section-title-size: var(--font-size-3xl);
   display: flow-root;
   padding-inline: calc((100vw - min(100vw, var(--content-max))) / 2 + var(--gutter));
+}
+
+/* Content 30px closer to the band's top than the wheel section's usual 52px (audit 2026-10-10) */
+.icingBand > :first-child {
+  padding-top: calc(var(--space-xl) + var(--space-20) - 30px);
 }

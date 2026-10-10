@@ -1,4 +1,5 @@
 import { MeltingDivider } from '@/features/core/components/MeltingDivider.component';
+import type { MeltingModel } from '@/features/core/config/meltingPatterns.config';
 import type { SiteSettings } from '@/features/core/types/SiteData.type';
 import type { Product } from '@/features/menu/types/Product.type';
 import { FeaturedSection } from '../components/FeaturedSection.component';
@@ -13,9 +14,19 @@ type HomeContainerProps = {
    * into it (cream drips on pink) and the band melts onto the footer (pink drips on cream).
    */
   layout?: 'default' | 'icing';
+  /** "icing" layout: drip pattern of the cream divider above the pink band (MeltingDivider `model`). */
+  icingModel?: MeltingModel;
+  /** "icing" layout: drip pattern of the pink band's own divider, onto the footer. */
+  icingEndModel?: MeltingModel;
 };
 
-export function HomeContainer({ settings, featuredProducts, layout = 'default' }: HomeContainerProps) {
+export function HomeContainer({
+  settings,
+  featuredProducts,
+  layout = 'default',
+  icingModel = 2,
+  icingEndModel = 3,
+}: HomeContainerProps) {
   const hasFeatured = featuredProducts.length > 0;
   const featured = hasFeatured && <FeaturedSection products={featuredProducts} />;
 
@@ -26,12 +37,12 @@ export function HomeContainer({ settings, featuredProducts, layout = 'default' }
         <>
           {/* Hero color dripping onto the pink band below */}
           <div className={`${styles.fullWidth} ${styles.icingStart}`}>
-            <MeltingDivider color="var(--c-bg)" />
+            <MeltingDivider color="var(--c-bg)" model={icingModel} />
           </div>
           <div className={`${styles.fullWidth} ${styles.icingBackdrop} ${styles.icingBand}`}>{featured}</div>
           {/* The pink band dripping onto the footer */}
           <div className={`${styles.fullWidth} ${styles.icingEnd}`}>
-            <MeltingDivider color="var(--c-icing)" />
+            <MeltingDivider color="var(--c-icing)" model={icingEndModel} />
           </div>
         </>
       ) : (

@@ -17,6 +17,10 @@ export default async function TestIcingPage() {
       settings={settings}
       featuredProducts={products.filter((product) => product.isFeatured)}
       layout="icing"
+      // Drip patterns (config/meltingPatterns.config.ts): 1 original · 2 soft drips · 3 big drop ·
+      // 4 long drips · 5 waves. Cream divider above the pink band / the pink band's own divider:
+      icingModel={2}
+      icingEndModel={3}
     />
   );
 }

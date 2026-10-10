@@ -16,10 +16,12 @@
 }
 
 .title {
-  font-size: var(--font-size-2xl);
+  /* --section-title-size: set by a parent that needs another size (e.g. the icing band) */
+  font-size: var(--section-title-size, var(--font-size-2xl));
   font-weight: 600;
   line-height: 1.2;
-  color: var(--c-cacao);
+  /* --section-title-color: set by a parent that needs another tone (e.g. the icing band) */
+  color: var(--section-title-color, var(--c-cacao));
 }
 
 .aside {

@@ -70,7 +70,7 @@
   --c-paper-pink: #f7e4e5;
   --c-paper-sand: #f8eee7;
   /* MeltingDivider icing (from the Gemini drip divider) */
-  --c-icing: #f2b5bc;
+  --c-icing: #eebdb6;
   --tear-height: 14px;
   /* Jagged top edge of a torn paper band (drawn ABOVE the band, over the section before it) */
   --tear-clip: polygon(0 62%, 4% 30%, 9% 72%, 13% 24%, 18% 66%, 23% 34%, 29% 76%, 34% 40%, 40% 70%, 45% 26%, 51% 64%, 57% 30%, 63% 74%, 68% 36%, 74% 68%, 79% 28%, 85% 72%, 90% 34%, 95% 66%, 100% 40%, 100% 100%, 0 100%);

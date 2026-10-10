@@ -10,7 +10,8 @@
   align-items: center;
   min-height: 44px;
   font-weight: 700;
-  color: var(--c-fresa-deep);
+  /* --see-all-color: set by a parent that needs another tone (e.g. the icing band) */
+  color: var(--see-all-color, var(--c-fresa-deep));
 }
 
 /* ── Section theme "torn": a full-width pink paper band. The wheel inside keeps exactly the

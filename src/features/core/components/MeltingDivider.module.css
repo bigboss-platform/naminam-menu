@@ -1,11 +1,24 @@
 .container {
   width: 100%;
-  /* the drop shadow below the drips may spill a little — don't let it add a scrollbar */
-  overflow: hidden;
+  /* The shadow may spill below onto the next section, but never sideways (no page scrollbar).
+     `clip` (not `hidden`) on one axis keeps the other axis visible. */
+  overflow-x: clip;
+  overflow-y: visible;
   line-height: 0;
 }
 
 .divider {
   display: block;
   width: 100%;
+  /* Let the drop shadow paint outside the drawing (it is part of the inline content, so it
+     paints over the next section's background) */
+  overflow: visible;
+}
+
+/* UI debug: drop codes, centered on each bulb */
+.dropLabel {
+  fill: red;
+  font: 700 10px/1 ui-monospace, Consolas, monospace;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
