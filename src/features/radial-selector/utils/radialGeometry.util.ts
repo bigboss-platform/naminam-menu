@@ -17,8 +17,11 @@ const DESKTOP_SELECTED_SCALE = 2.66;
 const DESKTOP_UNSELECTED_SCALE = 1.565;
 const DESKTOP_RADIUS_Y = 96;
 
-/** "arch" mode: the ellipse is as tall as this share of W1 (its top sits at W1's middle). */
-const ARCH_RADIUS_Y_RATIO = 0.5;
+/**
+ * "arch" mode: the ellipse is as tall as this share of W1, measured up from W1's bottom edge —
+ * its top sits at 40% from W1's top (approved 2026-10-10; 0.5 left too little room inside the arc).
+ */
+const ARCH_RADIUS_Y_RATIO = 0.6;
 /** Name + Pedir bar height used until W1 has been measured once. */
 const ESTIMATED_BAR_HEIGHT = 114;
 
