@@ -11,7 +11,9 @@
 .viewport {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  /* Not `overflow: hidden`: photos may extend past W2's bottom edge (approved 2026-10-10).
+     W1 (.selector, overflow hidden) still clips at the component's outer edge. */
+  overflow: visible;
   touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
@@ -85,6 +87,8 @@
 /* Below the wheel, centered: name, then the Pedir button on the next row */
 .selectedBar {
   position: relative;
+  /* Photos may overflow W2 into this bar — keep name + Pedir above them */
+  z-index: 200;
   display: flex;
   flex-direction: column;
   align-items: center;
