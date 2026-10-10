@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from 'react';
 import { ProductMedia } from '@/features/core/components/ProductMedia.component';
+import { UiDebugTag } from '@/features/core/components/UiDebugTag.component';
 import { formatPrice } from '@/features/core/utils/format.util';
 import type { RadialSelectorCtx } from '../hooks/useRadialSelector.hook';
 import type { RadialProduct } from '../types/RadialProduct.type';
@@ -17,20 +18,23 @@ type RadialProductCardProps = {
 
 /** One photo on the ellipse — just the picture, nothing around it. Position + tilt come from its angle. */
 export function RadialProductCard({ ctx, product, index }: RadialProductCardProps) {
-  const { geometry, itemStep, rotation, selectedIndex, onCardClick, onCardKeyDown } = ctx;
+  const { geometry, selectedIndex, getSlot, onCardClick, onCardKeyDown } = ctx;
   const isSelected = index === selectedIndex;
+  const { angle, distance, visibility } = getSlot(index);
 
-  const angleDegrees = index * itemStep + rotation - 90;
-  const angleRadians = (angleDegrees * Math.PI) / 180;
+  // angle 0 = the selected spot at the top of the ellipse
+  const angleRadians = ((angle - 90) * Math.PI) / 180;
   const x = geometry.centerX + geometry.radiusX * Math.cos(angleRadians);
   const y = geometry.centerY + geometry.radiusY * Math.sin(angleRadians);
 
   // Mostly upright, with a restrained tangent-like tilt.
-  const relativeAngle = (((angleDegrees + 90) % 360) + 360) % 360;
-  const signedAngle = relativeAngle > 180 ? relativeAngle - 360 : relativeAngle;
-  const tilt = clamp(signedAngle * 0.2, -16, 16);
-  // Selected photo is noticeably bigger than the rest (more so on desktop — see buildGeometry).
-  const scale = isSelected ? geometry.selectedScale : geometry.unselectedScale;
+  const tilt = clamp(angle * 0.2, -16, 16);
+  // Everything eases with the distance from the selected spot, so turning is smooth along the path:
+  // size (selected → side), dimming (side photos 50%), and the fade at the edge of the visible group.
+  const nearness = 1 - Math.min(distance, 1);
+  const scale = geometry.unselectedScale + (geometry.selectedScale - geometry.unselectedScale) * nearness;
+  const opacity = visibility * (0.5 + 0.5 * nearness);
+  const isHidden = visibility === 0;
 
   const cardStyle: CSSProperties = {
     left: x,
@@ -38,13 +42,14 @@ export function RadialProductCard({ ctx, product, index }: RadialProductCardProp
     width: geometry.cardWidth,
     height: geometry.cardHeight,
     transform: `translate(-50%, -50%) rotate(${tilt}deg) scale(${scale})`,
-    zIndex: isSelected ? 3 : 1,
+    opacity,
+    zIndex: Math.round(100 - distance * 10),
   };
 
   return (
     <button
       type="button"
-      className={`${styles.product} ${isSelected ? styles.productSelected : ''}`}
+      className={`${styles.product} ${isHidden ? styles.productHidden : ''}`}
       style={cardStyle}
       onClick={() => onCardClick(index)}
       onKeyDown={(event) => {
@@ -59,10 +64,15 @@ export function RadialProductCard({ ctx, product, index }: RadialProductCardProp
         mediaUrl={product.mediaUrl}
         posterUrl={product.posterUrl}
         alt={product.name}
-        sizes="180px"
+        // Desktop selected photo renders ~390px wide (see DESKTOP_SELECTED_SCALE) — load a sharp enough file
+        sizes="(min-width: 900px) 400px, 180px"
         className={styles.photo}
       />
-      <span className={styles.priceTag}>{formatPrice(product.price)}</span>
+      <UiDebugTag code={`W4·${index + 1}`} />
+      <span className={styles.priceTag}>
+        <UiDebugTag code={`W5·${index + 1}`} />
+        {formatPrice(product.price)}
+      </span>
     </button>
   );
 }

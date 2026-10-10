@@ -12,5 +12,6 @@ export const revalidate = 60;
 
 export default async function TestPage() {
   const { products } = await getSiteData();
-  return <RadialTestContainer products={products.filter((product) => product.categoryId === 'cheesecake')} />;
+  // Same products as the home wheel ("Nuestros favoritos")
+  return <RadialTestContainer products={products.filter((product) => product.isFeatured)} />;
 }

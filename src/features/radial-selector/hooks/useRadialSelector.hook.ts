@@ -2,54 +2,28 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
-import type { RadialGeometry, RadialProduct } from '../types/RadialProduct.type';
+import type { RadialPathMode, RadialProduct, RadialSpacing } from '../types/RadialProduct.type';
+import { animateNumber } from '../utils/animateNumber.util';
+import { buildRadialGeometry } from '../utils/radialGeometry.util';
+import { getRadialSlot } from '../utils/radialSlots.util';
 
 const DEFAULT_WIDTH = 390;
 /** Pixels of horizontal movement before a press becomes a drag (below this it's a tap). */
 const DRAG_THRESHOLD_PX = 6;
-/** From this component width up (tablet/desktop) the selected photo grows more. */
-const WIDE_LAYOUT_PX = 600;
+/** Tap / release / arrow key: how long the wheel takes to turn to its new spot (along the path). */
+const TURN_DURATION_MS = 280;
+/** Desktop = same breakpoint as the rest of the site. Tablets and phones keep the width-based wheel. */
+const DESKTOP_QUERY = '(min-width: 900px)';
 
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 /** Modulo that is always positive: wrapIndex(-1, 6) === 5. */
 const wrapIndex = (value: number, length: number) => ((value % length) + length) % length;
 
-/** Breathing room between the photos and the component's top/bottom edges. */
-const EDGE_GAP_PX = 16;
-
-/**
- * Ellipse + card sizes from the component width. The top of the ellipse is anchored
- * just below the component's top edge (no dead space above the selected photo), and
- * the height ends just below the neighbouring photos.
- */
-function buildGeometry(viewportWidth: number, productCount: number): RadialGeometry {
-  const width = Math.max(280, viewportWidth);
-  const isWide = width >= WIDE_LAYOUT_PX;
-  const cardWidth = clamp(width * 0.35, 112, 146);
-  const cardHeight = clamp(width * 0.4, 138, 166);
-  const selectedScale = isWide ? 1.7 : 1.2;
-  const unselectedScale = isWide ? 1 : 0.8;
-  // Desktop: a much wider, flatter circle. Mobile: slightly bigger than the original.
-  const radiusX = isWide ? width * 0.38 : width * 0.52;
-  const radiusY = isWide ? width * 0.2 : width * 0.4;
-
-  const centerY = EDGE_GAP_PX + (cardHeight * selectedScale) / 2 + radiusY;
-  const neighbourY = centerY - radiusY * Math.cos((2 * Math.PI) / Math.max(productCount, 1));
-  const height = neighbourY + (cardHeight * unselectedScale) / 2 + EDGE_GAP_PX * 2;
-
-  return {
-    width,
-    height,
-    radiusX,
-    radiusY,
-    centerX: width / 2,
-    centerY,
-    cardWidth,
-    cardHeight,
-    selectedScale,
-    unselectedScale,
-  };
-}
+export type RadialSelectorOptions = {
+  pathMode: RadialPathMode;
+  spacing: RadialSpacing;
+  /** Total photos shown, selected included (odd; 4 → 5). 0 = default: desktop 3, mobile all but the far side. */
+  visibleCount: number;
+};
 
 /**
  * State + interaction for the radial (wheel) selector: products sit on an ellipse,
@@ -57,11 +31,13 @@ function buildGeometry(viewportWidth: number, productCount: number): RadialGeome
  * Endless: the wheel keeps turning past the last product back to the first, with no
  * jump — `step` is an unbounded position counter and the selected product is step mod n.
  */
-export function useRadialSelector(products: RadialProduct[]) {
+export function useRadialSelector(products: RadialProduct[], { pathMode, spacing, visibleCount }: RadialSelectorOptions) {
   const [step, setStep] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(DEFAULT_WIDTH);
+  const [componentHeight, setComponentHeight] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
   const router = useRouter();
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -69,25 +45,49 @@ export function useRadialSelector(products: RadialProduct[]) {
   const rotationRef = useRef(0);
   // Set when a press turned into a drag, so the click that follows doesn't select a card.
   const didDragRef = useRef(false);
+  const cancelTurnRef = useRef<() => void>(() => {});
+
+  useEffect(() => () => cancelTurnRef.current(), []);
 
   // ResizeObserver reports the initial size on observe — no synchronous setState needed.
   useEffect(() => {
     const element = rootRef.current;
     if (!element) return;
-    const observer = new ResizeObserver(([entry]) => setViewportWidth(entry.contentRect.width || DEFAULT_WIDTH));
+    // Crossing 900px also changes the component's width, so the observer fires then too.
+    const observer = new ResizeObserver(([entry]) => {
+      setViewportWidth(entry.contentRect.width || DEFAULT_WIDTH);
+      setComponentHeight(entry.contentRect.height); // "arch" mode centers its ellipse on W1's bottom edge
+      setIsDesktop(window.matchMedia(DESKTOP_QUERY).matches);
+    });
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
 
   const productCount = Math.max(products.length, 1);
-  const geometry = buildGeometry(viewportWidth, productCount);
+  const geometry = buildRadialGeometry({
+    componentWidth: viewportWidth,
+    componentHeight,
+    productCount,
+    isDesktop,
+    pathMode,
+  });
   const itemStep = 360 / productCount;
   const selectedIndex = wrapIndex(step, productCount);
 
+  /** Position of product `index` on the path right now (angle, distance, visibility). */
+  const getSlot = (index: number) =>
+    getRadialSlot({ index, rotation, productCount, spacing, visibleCount, isDesktop });
+
+  const setRotationNow = (value: number) => {
+    rotationRef.current = value;
+    setRotation(value);
+  };
+
+  /** Animate the rotation (not CSS left/top), so every photo travels along the path, never across it. */
   const goToStep = (nextStep: number) => {
     setStep(nextStep);
-    rotationRef.current = -nextStep * itemStep;
-    setRotation(rotationRef.current);
+    cancelTurnRef.current();
+    cancelTurnRef.current = animateNumber(rotationRef.current, -nextStep * itemStep, TURN_DURATION_MS, setRotationNow);
   };
 
   /** Turn the shortest way round to `index` (e.g. from the last product, "next" is the first). */
@@ -99,6 +99,7 @@ export function useRadialSelector(products: RadialProduct[]) {
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (products.length < 2) return;
+    cancelTurnRef.current(); // grab the wheel mid-turn
     pressRef.current = { x: event.clientX, rotation: rotationRef.current, pointerId: event.pointerId };
     didDragRef.current = false;
   };
@@ -116,8 +117,7 @@ export function useRadialSelector(products: RadialProduct[]) {
     }
     // Dragging about one card-width rotates about one product step.
     const degreesPerPixel = itemStep / Math.max(geometry.cardWidth * 0.88, 100);
-    rotationRef.current = press.rotation + deltaX * degreesPerPixel;
-    setRotation(rotationRef.current);
+    setRotationNow(press.rotation + deltaX * degreesPerPixel);
   };
 
   const onPointerEnd = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -152,8 +152,7 @@ export function useRadialSelector(products: RadialProduct[]) {
     rootRef,
     products,
     selectedIndex,
-    rotation,
-    itemStep,
+    getSlot,
     geometry,
     isDragging,
     pointerHandlers: {

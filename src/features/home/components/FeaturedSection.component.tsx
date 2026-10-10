@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { SectionHeader } from '@/features/core/components/SectionHeader.component';
+import { IS_UI_DEBUG } from '@/features/core/config/uiDebug.config';
 import type { Product } from '@/features/menu/types/Product.type';
 import { RadialProductSelector } from '@/features/radial-selector/components/RadialProductSelector.component';
 import { toRadialProduct } from '@/features/radial-selector/utils/toRadialProduct.util';
+import { withUiDebugTestItems } from '@/features/radial-selector/utils/uiDebugTestItems.util';
 import styles from './FeaturedSection.module.css';
 
 /**
@@ -10,7 +12,9 @@ import styles from './FeaturedSection.module.css';
  * photo opens the menu scrolled to that dessert (/menu#slug).
  */
 export function FeaturedSection({ products }: { products: Product[] }) {
-  const wheelProducts = products.map((product) => toRadialProduct(product, `/menu#${product.slug}`));
+  const wheelProducts = withUiDebugTestItems(
+    products.map((product) => toRadialProduct(product, `/menu#${product.slug}`)),
+  );
 
   return (
     <section className={styles.section} aria-labelledby="featured-title">
@@ -24,7 +28,14 @@ export function FeaturedSection({ products }: { products: Product[] }) {
           </Link>
         }
       />
-      <RadialProductSelector products={wheelProducts} />
+      {/* Same setup as /test. The blue path only shows in UI debug mode (NEXT_PUBLIC_UI_DEBUG). */}
+      <RadialProductSelector
+        products={wheelProducts}
+        pathMode="arch"
+        spacing="visible-arc"
+        visibleCount={3}
+        showPath={IS_UI_DEBUG}
+      />
     </section>
   );
 }
