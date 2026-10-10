@@ -64,15 +64,11 @@ export function RadialProductCard({ ctx, product, index }: RadialProductCardProp
         mediaUrl={product.mediaUrl}
         posterUrl={product.posterUrl}
         alt={product.name}
-        // Desktop selected photo renders ~390px wide (see DESKTOP_SELECTED_SCALE) — load a sharp enough file
-        sizes="(min-width: 900px) 400px, 180px"
+        // Selected photo: ~390px wide from a 600px-wide component (≈640px screen) up, 180px on phones
+        sizes="(min-width: 640px) 400px, 180px"
         className={styles.photo}
       />
       <UiDebugTag code={`W4·${index + 1}`} />
-      <span className={styles.priceTag}>
-        <UiDebugTag code={`W5·${index + 1}`} />
-        {formatPrice(product.price)}
-      </span>
     </button>
   );
 }

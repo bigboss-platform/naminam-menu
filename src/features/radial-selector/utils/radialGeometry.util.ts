@@ -59,18 +59,54 @@ function buildOrbitGeometry({ componentWidth, productCount, isDesktop }: Geometr
   return { width, height, radiusX, radiusY, centerX: width / 2, centerY, cardWidth, cardHeight, selectedScale, unselectedScale };
 }
 
+type ArchSizes = Pick<RadialGeometry, 'cardWidth' | 'cardHeight' | 'selectedScale' | 'unselectedScale' | 'height'> & {
+  /** Ellipse height as a share of W1 (overrides ARCH_RADIUS_Y_RATIO for this device size). */
+  radiusYRatio: number;
+};
+
+/** Desktop + tablets (component ≥ 600px): the sizes approved on desktop (see DESKTOP_* above). */
+const ARCH_LARGE_SIZES: ArchSizes = {
+  cardWidth: 146,
+  cardHeight: 166,
+  selectedScale: DESKTOP_SELECTED_SCALE,
+  unselectedScale: DESKTOP_UNSELECTED_SCALE,
+  height: DESKTOP_HEIGHT,
+  radiusYRatio: ARCH_RADIUS_Y_RATIO,
+};
+
 /**
- * "arch": same card sizes and W2 height as orbit, but the ellipse is as wide as W1, its center
- * sits on W1's bottom edge (only the top half can show) and it is half of W1's height tall.
+ * Phones: same rules as desktop, fixed sizes (never stretched by the phone's width).
+ * Selected photo 180 × 204.7px (scale 1.233); side photos keep desktop's ratio to it
+ * (1.565 / 2.66 ≈ 0.588 → scale 0.725, 106 × 120px). Selected photo ends at 75% of W1:
+ * W1 = (16 + 204.7) / 0.75 ≈ 294.3px → W2 = 294.3 − 102.4 (name + Pedir bar on phones) ≈ 191.9px.
  */
-function buildArchGeometry(input: GeometryInput): RadialGeometry {
-  const orbit = buildOrbitGeometry(input);
-  const componentHeight = input.componentHeight || orbit.height + ESTIMATED_BAR_HEIGHT;
+const ARCH_PHONE_SIZES: ArchSizes = {
+  cardWidth: 146,
+  cardHeight: 166,
+  selectedScale: 1.233,
+  unselectedScale: 0.725,
+  // 191.9 by the 75% rule, + 90px taller component on phones — mobile audit 2026-10-10
+  height: 281.9,
+  // Top of the arch at 34% from W1's top (desktop: 40%) — mobile audit 2026-10-10
+  radiusYRatio: 0.66,
+};
+
+/**
+ * "arch": the ellipse is as wide as W1, its center sits on W1's bottom edge (only the top
+ * half can show) and it is ARCH_RADIUS_Y_RATIO of W1's height tall. Photo sizes and W2's
+ * height are fixed per device size (ARCH_*_SIZES), so they never stretch with the screen.
+ */
+function buildArchGeometry({ componentWidth, componentHeight, isDesktop }: GeometryInput): RadialGeometry {
+  const width = Math.max(280, componentWidth);
+  const sizes = isDesktop || width >= WIDE_LAYOUT_PX ? ARCH_LARGE_SIZES : ARCH_PHONE_SIZES;
+  const measuredHeight = componentHeight || sizes.height + ESTIMATED_BAR_HEIGHT;
   return {
-    ...orbit,
-    radiusX: orbit.width / 2,
-    centerY: componentHeight,
-    radiusY: componentHeight * ARCH_RADIUS_Y_RATIO,
+    ...sizes,
+    width,
+    radiusX: width / 2,
+    centerX: width / 2,
+    centerY: measuredHeight,
+    radiusY: measuredHeight * sizes.radiusYRatio,
   };
 }
 
