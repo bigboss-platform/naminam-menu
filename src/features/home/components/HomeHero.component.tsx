@@ -34,7 +34,6 @@ export function HomeHero({ settings }: { settings: SiteSettings }) {
       <div className={styles.mascot}>
         <BrandAnimation
           lottieSrc={BRAND_ASSETS.mascotHeroLottie}
-          imageSrc={BRAND_ASSETS.mascotHeroImage}
           label="Santanita te saluda"
           emoji="👩🏻‍🍳"
         />

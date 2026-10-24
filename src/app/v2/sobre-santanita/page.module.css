@@ -1,0 +1,24 @@
+.story {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .story {
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+.valuesTitle {
+  margin: 56px 0 24px;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .values {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

@@ -1,0 +1,133 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: var(--v2-border-thick);
+  border-radius: 24px;
+  box-shadow: var(--v2-shadow-sm);
+  scroll-margin-top: 24px;
+}
+
+.card:target {
+  animation: wiggle 700ms ease 300ms;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-1.5deg); }
+  75% { transform: rotate(1.5deg); }
+}
+
+.teal {
+  background: var(--v2-soft-teal);
+}
+
+.pink {
+  background: var(--v2-soft-pink);
+}
+
+.yellow {
+  background: var(--v2-soft-yellow);
+}
+
+.name {
+  color: var(--v2-ink);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.imageBox {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: var(--v2-border-thin);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.soldOut .image {
+  filter: grayscale(0.8);
+  opacity: 0.75;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  padding: 2px 12px;
+  border: var(--v2-border-thin);
+  border-radius: 9999px;
+  background: var(--v2-pink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stock,
+.note {
+  padding: 2px 10px;
+  border: var(--v2-border-thin);
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.in_stock {
+  background: var(--v2-teal);
+  color: var(--v2-ink);
+}
+
+.on_order {
+  background: var(--v2-yellow);
+  color: var(--v2-ink);
+}
+
+.sold_out {
+  background: var(--v2-ink);
+  color: #fff;
+}
+
+.note {
+  background: #fff;
+  color: var(--v2-ink);
+}
+
+.description {
+  color: var(--v2-ink);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.story {
+  padding: 10px 12px;
+  border: var(--v2-border-thin);
+  border-radius: 16px;
+  background: #fff;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.readMore {
+  align-self: flex-start;
+  color: var(--v2-pink-dark);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

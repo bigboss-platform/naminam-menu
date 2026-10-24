@@ -7,6 +7,7 @@ import formStyles from '@/features/requests/components/forms.module.css';
 import type { CheckoutCtx } from '../hooks/useCheckout.hook';
 
 const NOTES_HINT = '¿Fritos o congelados? ¿Alguna alergia? Cuéntanos aquí.';
+const EMAIL_HINT = 'Ahí te enviamos el resumen de tu pedido.';
 
 /** Delivery data. No card, no payment: Santanita closes the order on WhatsApp. */
 export function CheckoutForm({ form }: { form: CheckoutCtx }) {
@@ -14,10 +15,10 @@ export function CheckoutForm({ form }: { form: CheckoutCtx }) {
   return (
     <form className={formStyles.form} onSubmit={form.handleSubmit} noValidate>
       <div className={formStyles.row}>
-        <FormField id="checkout-name" label="Nombre y apellido" error={errors.name}>
+        <FormField id="checkout-name" label="¿Cómo te llamas?" error={errors.name}>
           <input {...fieldAria('checkout-name', errors.name)} autoComplete="name" value={values.name} onChange={(event) => setField('name', event.target.value)} />
         </FormField>
-        <FormField id="checkout-whatsapp" label="WhatsApp" error={errors.whatsapp}>
+        <FormField id="checkout-whatsapp" label="¿Cuál es tu WhatsApp?" error={errors.whatsapp}>
           <input
             {...fieldAria('checkout-whatsapp', errors.whatsapp)}
             type="tel"
@@ -29,9 +30,9 @@ export function CheckoutForm({ form }: { form: CheckoutCtx }) {
           />
         </FormField>
       </div>
-      <FormField id="checkout-email" label="Correo (te enviamos el resumen)" error={errors.email}>
+      <FormField id="checkout-email" label="¿Cuál es tu correo?" hint={EMAIL_HINT} error={errors.email}>
         <input
-          {...fieldAria('checkout-email', errors.email)}
+          {...fieldAria('checkout-email', errors.email, EMAIL_HINT)}
           type="email"
           autoComplete="email"
           placeholder="nombre@gmail.com"
@@ -40,14 +41,14 @@ export function CheckoutForm({ form }: { form: CheckoutCtx }) {
         />
       </FormField>
       <div className={formStyles.row}>
-        <FormField id="checkout-district" label="Distrito" error={errors.district}>
+        <FormField id="checkout-district" label="¿En qué distrito estás?" error={errors.district}>
           <select {...fieldAria('checkout-district', errors.district)} value={values.district} onChange={(event) => setField('district', event.target.value)}>
             {DELIVERY_DISTRICTS.map((district) => (
               <option key={district}>{district}</option>
             ))}
           </select>
         </FormField>
-        <FormField id="checkout-deliveryDate" label="¿Para cuándo?" optional error={errors.deliveryDate}>
+        <FormField id="checkout-deliveryDate" label="¿Para cuándo lo quieres?" optional error={errors.deliveryDate}>
           <input
             {...fieldAria('checkout-deliveryDate', errors.deliveryDate)}
             type="date"
@@ -56,7 +57,7 @@ export function CheckoutForm({ form }: { form: CheckoutCtx }) {
           />
         </FormField>
       </div>
-      <FormField id="checkout-address" label="Dirección de entrega" error={errors.address}>
+      <FormField id="checkout-address" label="¿A qué dirección te lo llevamos?" error={errors.address}>
         <input
           {...fieldAria('checkout-address', errors.address)}
           autoComplete="street-address"
@@ -65,7 +66,7 @@ export function CheckoutForm({ form }: { form: CheckoutCtx }) {
           onChange={(event) => setField('address', event.target.value)}
         />
       </FormField>
-      <FormField id="checkout-notes" label="Notas" optional hint={NOTES_HINT} error={errors.notes}>
+      <FormField id="checkout-notes" label="¿Algo más que debamos saber?" optional hint={NOTES_HINT} error={errors.notes}>
         <textarea
           {...fieldAria('checkout-notes', errors.notes, NOTES_HINT)}
           rows={3}

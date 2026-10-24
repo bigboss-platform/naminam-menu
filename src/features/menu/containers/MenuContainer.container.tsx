@@ -1,5 +1,6 @@
 'use client';
 
+import { PhotoCredits } from '@/features/core/components/PhotoCredits.component';
 import { MenuCategoryRail } from '../components/MenuCategoryRail.component';
 import { MenuEmptyState } from '../components/MenuEmptyState.component';
 import { MenuSearchButton } from '../components/MenuSearchButton.component';
@@ -29,6 +30,7 @@ export function MenuContainer({ products, categories }: { products: Product[]; c
         ) : (
           <MenuEmptyState ctx={ctx} />
         )}
+        <PhotoCredits />
       </div>
 
       {/*

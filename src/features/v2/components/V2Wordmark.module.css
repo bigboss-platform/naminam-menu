@@ -1,0 +1,76 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+
+.logo {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  transition: transform 300ms ease;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.lettering {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  letter-spacing: 0.025em;
+}
+
+/* "Los" — small pink pill, slightly tilted */
+.los {
+  display: inline-block;
+  margin: 0 0 -6px 4px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: var(--v2-pink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  transform: rotate(-3deg);
+  box-shadow: var(--v2-shadow-sm);
+}
+
+.name {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  -webkit-text-stroke: 1.5px var(--v2-pink-stroke);
+  paint-order: stroke fill;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+}
+
+.de {
+  margin-left: -4px;
+  color: var(--v2-pink);
+  font-size: 12px;
+  font-weight: 400;
+  vertical-align: middle;
+  -webkit-text-stroke: 0;
+}
+
+.santanita {
+  display: inline-block;
+  margin-top: -8px;
+  font-size: 30px;
+}
+
+@media (min-width: 768px) {
+  .name,
+  .santanita {
+    font-size: 36px;
+  }
+}

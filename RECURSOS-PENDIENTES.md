@@ -1,7 +1,11 @@
 # Recursos pendientes — Los Antojitos de Santanita
 
-Lista de logos, Lotties e imágenes que faltan para el sitio. Mientras no existan, el sitio muestra
-un círculo tipo atardecer (Manjar → Guayaba) con un emoji.
+Lista de logos, Lotties e imágenes para el sitio (v1 y v2).
+
+**Ya puestos (2026-10-24):** logo circular de la mascota (`public/brand/logo.webp`, también ícono de la
+pestaña y de iPhone, sitio y panel), mascota detallada (`public/brand/mascota.webp`, reemplaza a las
+Lotties y se usa en pantallas de carga) y fotos **provisionales** de los 14 productos (Wikimedia Commons,
+CC0 salvo dos CC BY con crédito en el menú).
 
 **Cómo agregarlos:** pon los archivos en `public/brand/` (Lotties en `public/brand/lottie/`, fotos de
 productos en `public/brand/products/`) y escribe la ruta en
@@ -18,14 +22,14 @@ con lunares blancos y chaqueta colorida (inspirada en la bata de mariposa de *De
 
 | ✔ | Recurso | Dónde se ve | Formato | Clave en `brandAssets.config.ts` |
 |---|---|---|---|---|
-| ☐ | **Logo principal** (`Img_Logo_Main`, circular con atardecer) | Barra superior, footer, login del panel, espacio vacío de las fotos | SVG o PNG transparente, cuadrado, 512×512 | `logo` |
-| ☐ | **Favicon** (ícono de la pestaña) | Pestaña del navegador (sitio y panel) | SVG cuadrado, o PNG 512×512. Versión simple que se lea a 16 px (la "S" o la cara de la mascota) | Reemplaza `src/app/icon.svg` |
-| ☐ | **Apple icon** | Al guardar el sitio en la pantalla de inicio del iPhone | PNG 180×180, sin transparencia | Va en `src/app/apple-icon.png` |
+| ✔ | **Logo principal** (`Img_Logo_Main`, circular, solo el muñeco) | Barra superior, footer, login del panel, espacio vacío de las fotos | SVG o PNG transparente, cuadrado, 512×512 | `logo` |
+| ✔ | **Favicon** (ícono de la pestaña) | Pestaña del navegador (sitio y panel) | SVG cuadrado, o PNG 512×512. Versión simple que se lea a 16 px (la "S" o la cara de la mascota) | Reemplaza `src/app/icon.svg` |
+| ✔ | **Apple icon** | Al guardar el sitio en la pantalla de inicio del iPhone | PNG 180×180, sin transparencia | Va en `src/app/apple-icon.png` |
 
 ## 2. Lotties
 
-Formato `.lottie` (más liviano) o `.json`, cuadradas, idealmente de menos de 150 KB cada una. Si alguna
-no sale como Lottie, sirve un PNG transparente como respaldo.
+Formato `.lottie` (más liviano) o `.json`, cuadradas, idealmente de menos de 150 KB cada una.
+Mientras no existan, se muestra la mascota detallada (`mascota.webp`).
 
 | ✔ | Animación | Dónde se ve | Idea | ¿Se repite? | Clave |
 |---|---|---|---|---|---|
@@ -45,8 +49,9 @@ no sale como Lottie, sirve un PNG transparente como respaldo.
 
 ### Fotos de productos (14)
 
-Formato JPG o WebP 4:3, unos 1200×900. Se registran en `PRODUCT_PHOTOS` usando el código del producto.
-Mientras no estén las fotos reales, se pueden usar las del tupper hexagonal (`Img_Product_Real`).
+Formato JPG o WebP 4:3, unos 1200×900. Hoy hay fotos provisionales en `public/brand/products/<código>.webp`:
+para usar la foto real basta con reemplazar ese archivo con el mismo nombre. Si reemplazas la de
+Ponche Crema o Tequeños de pan de jamón, borra su línea en `PHOTO_CREDITS`.
 
 | ✔ | Producto | Código (`PRODUCT_PHOTOS`) | Sección |
 |---|---|---|---|
@@ -78,7 +83,7 @@ export const PRODUCT_PHOTOS: Record<string, string> = {
 
 ## Prioridad sugerida
 
-1. Logo principal y favicon — aparecen en todas las páginas.
+1. ~~Logo principal y favicon~~ (listo).
 2. Lottie de la mascota del hero — es lo primero que se ve.
 3. Lottie de pedido enviado.
 4. Lottie de la mascota en bici.

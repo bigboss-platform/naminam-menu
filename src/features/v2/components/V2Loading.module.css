@@ -1,0 +1,43 @@
+.loading {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.mascot {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border: var(--v2-border-thick);
+  border-radius: 50%;
+  background: var(--v2-avatar);
+  overflow: hidden;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot {
+    animation: none;
+  }
+}

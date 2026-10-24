@@ -10,7 +10,6 @@ export function DeliveryBanner({ note }: { note: string }) {
       <div className={styles.mascot}>
         <BrandAnimation
           lottieSrc={BRAND_ASSETS.mascotBikeLottie}
-          imageSrc={BRAND_ASSETS.mascotBikeImage}
           label="Santanita en bici"
           emoji="🚲"
         />
@@ -22,9 +21,6 @@ export function DeliveryBanner({ note }: { note: string }) {
         <p className={styles.text}>{note}</p>
         <Link href="/como-ordenar" className={styles.link}>
           ¿Cómo ordenar?
-          <span className="material-symbols-outlined" aria-hidden="true">
-            arrow_forward
-          </span>
         </Link>
       </div>
     </section>

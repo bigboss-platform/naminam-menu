@@ -1,0 +1,270 @@
+/* max-w-6xl mx-auto px-6 pt-6 pb-12 */
+.hero {
+  width: 100%;
+  max-width: var(--v2-max);
+  margin: 0 auto;
+  padding: 24px 24px 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 5fr 7fr;
+  }
+}
+
+/* ── Avatar ── */
+.avatarColumn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  position: relative;
+  width: 288px;
+  height: 288px;
+  padding: 8px;
+  border: var(--v2-border-thick);
+  border-radius: 50%;
+  background: var(--v2-avatar);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 640px) {
+  .avatar {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+.avatarImage {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.avatar:hover .avatarImage {
+  transform: scale(1.04) rotate(-1deg);
+}
+
+.doodle {
+  position: absolute;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+  z-index: 1;
+}
+
+.sparkleTeal {
+  top: -16px;
+  left: 24px;
+  color: var(--v2-teal);
+  font-size: 30px;
+  transform: rotate(12deg);
+}
+
+.sparkleYellow {
+  top: 40px;
+  left: -8px;
+  color: var(--v2-yellow);
+  font-size: 36px;
+  transform: rotate(45deg);
+}
+
+.sparklePink {
+  top: 8px;
+  right: 48px;
+  color: var(--v2-pink);
+  font-size: 24px;
+  transform: rotate(-12deg);
+}
+
+.dashes {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  z-index: 1;
+  display: flex;
+  gap: 4px;
+}
+
+.dashes span {
+  display: inline-block;
+  width: 6px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--v2-teal);
+}
+
+.dashes span:nth-child(1) {
+  transform: rotate(-45deg);
+}
+
+.dashes span:nth-child(2) {
+  transform: rotate(-12deg);
+}
+
+.dashes span:nth-child(3) {
+  transform: rotate(24deg);
+}
+
+.flan {
+  position: absolute;
+  bottom: 16px;
+  right: 56px;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--v2-border-thin);
+  border-radius: 50%;
+  background: var(--v2-soft-pink);
+  font-size: 12px;
+  transform: rotate(-12deg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Copy ── */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .copy {
+    padding-left: 16px;
+  }
+}
+
+.titleWrap {
+  position: relative;
+}
+
+.title {
+  margin-bottom: 12px;
+  color: var(--v2-ink);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 54px;
+  }
+}
+
+.accent {
+  position: absolute;
+  top: -12px;
+  right: 32px;
+  display: flex;
+  gap: 4px;
+  transform: rotate(-12deg);
+}
+
+.accent span {
+  width: 4px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--v2-pink);
+}
+
+.accent span:nth-child(2) {
+  height: 20px;
+  margin-top: -4px;
+}
+
+.subtitle {
+  margin: 8px 0 4px;
+  color: var(--v2-ink);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .subtitle {
+    font-size: 24px;
+  }
+}
+
+.lead {
+  max-width: 512px;
+  margin-bottom: 24px;
+  color: var(--v2-ink);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.375;
+}
+
+@media (min-width: 640px) {
+  .lead {
+    font-size: 18px;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: var(--v2-border-thin);
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: var(--v2-shadow-sm);
+  transition: transform 150ms ease, filter 150ms ease;
+}
+
+@media (min-width: 640px) {
+  .button {
+    font-size: 18px;
+  }
+}
+
+.button:hover {
+  filter: brightness(1.05);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+.whatsapp {
+  background: var(--v2-pink);
+  color: #fff;
+}
+
+.menu {
+  background: var(--v2-teal);
+  color: var(--v2-ink);
+}

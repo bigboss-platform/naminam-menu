@@ -12,7 +12,8 @@ export function ComplaintClaimFields({ form }: { form: ComplaintFormCtx }) {
     <>
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>2. Identificación del bien contratado</legend>
-        <div className={styles.choiceGroup} role="radiogroup" aria-label="Tipo de bien">
+        <p className={styles.label}>¿Fue un producto o un servicio?</p>
+        <div className={styles.choiceGroup} role="radiogroup" aria-label="¿Fue un producto o un servicio?">
           {ITEM_TYPES.map((type) => (
             <label key={type} className={styles.choice}>
               <input
@@ -26,7 +27,7 @@ export function ComplaintClaimFields({ form }: { form: ComplaintFormCtx }) {
             </label>
           ))}
         </div>
-        <FormField id="lr-amount" label="Monto reclamado (S/)" optional error={errors.amount}>
+        <FormField id="lr-amount" label="¿Cuánto pagaste? (S/)" optional error={errors.amount}>
           <input
             {...fieldAria('lr-amount', errors.amount)}
             inputMode="decimal"
@@ -35,7 +36,7 @@ export function ComplaintClaimFields({ form }: { form: ComplaintFormCtx }) {
             onChange={(event) => setField('amount', event.target.value)}
           />
         </FormField>
-        <FormField id="lr-itemDescription" label="Descripción del producto o servicio" error={errors.itemDescription}>
+        <FormField id="lr-itemDescription" label="¿Qué producto o servicio fue?" error={errors.itemDescription}>
           <input
             {...fieldAria('lr-itemDescription', errors.itemDescription)}
             placeholder="Ej. Quesillo clásico, pedido PED-…"
@@ -47,7 +48,8 @@ export function ComplaintClaimFields({ form }: { form: ComplaintFormCtx }) {
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>3. Detalle de la reclamación</legend>
-        <div className={styles.choiceGroup} role="radiogroup" aria-label="Tipo de reclamación">
+        <p className={styles.label}>¿Es un reclamo o una queja?</p>
+        <div className={styles.choiceGroup} role="radiogroup" aria-label="¿Es un reclamo o una queja?">
           {CLAIM_TYPES.map((type) => (
             <label key={type.value} className={styles.choice} title={type.hint}>
               <input
@@ -62,7 +64,7 @@ export function ComplaintClaimFields({ form }: { form: ComplaintFormCtx }) {
           ))}
         </div>
         <p className={styles.hint}>{CLAIM_TYPES.find((type) => type.value === values.claimType)?.hint}</p>
-        <FormField id="lr-detail" label="Detalle" error={errors.detail}>
+        <FormField id="lr-detail" label="¿Qué pasó?" error={errors.detail}>
           <textarea
             {...fieldAria('lr-detail', errors.detail)}
             rows={4}
@@ -70,11 +72,11 @@ export function ComplaintClaimFields({ form }: { form: ComplaintFormCtx }) {
             onChange={(event) => setField('detail', event.target.value)}
           />
         </FormField>
-        <FormField id="lr-request" label="Pedido del consumidor" error={errors.request}>
+        <FormField id="lr-request" label="¿Qué solución esperas?" error={errors.request}>
           <textarea
             {...fieldAria('lr-request', errors.request)}
             rows={3}
-            placeholder="¿Qué solución esperas?"
+            placeholder="Ej. Que me cambien el producto"
             value={values.request}
             onChange={(event) => setField('request', event.target.value)}
           />

@@ -1,0 +1,72 @@
+/* relative bg-brand-pink cartoon-border-black rounded-[36px] pt-8 pb-7 px-6 sm:px-10 shadow-md */
+.panel {
+  position: relative;
+  margin-top: 28px;
+  padding: 32px 24px 28px;
+  border: var(--v2-border-thick);
+  border-radius: 36px;
+  box-shadow: var(--v2-shadow-md);
+}
+
+@media (min-width: 640px) {
+  .panel {
+    padding: 32px 40px 28px;
+  }
+}
+
+.pink {
+  background: var(--v2-pink);
+  /* white question labels and messages on pink */
+  --form-label-color: #fff;
+  --form-error-color: #fff;
+  --form-hint-color: rgba(255, 255, 255, 0.9);
+}
+
+.cream {
+  background: var(--v2-tab);
+}
+
+.teal {
+  background: var(--v2-soft-teal);
+}
+
+.yellow {
+  background: var(--v2-soft-yellow);
+}
+
+/* absolute -top-7 left-1/2 -translate-x-1/2 bg-[#FFF4E4] cartoon-border-black px-6 py-2 rounded-2xl */
+.tab {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  max-width: calc(100% - 32px);
+  padding: 8px 24px;
+  border: var(--v2-border-thick);
+  border-radius: 16px;
+  background: var(--v2-tab);
+  box-shadow: var(--v2-shadow-sm);
+  transform: translateX(-50%);
+  width: max-content;
+  text-align: center;
+}
+
+.cream .tab {
+  background: #fff;
+}
+
+.tabTitle {
+  color: var(--v2-ink);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .tabTitle {
+    font-size: 30px;
+  }
+}
+
+.body {
+  margin-top: 8px;
+}

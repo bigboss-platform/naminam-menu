@@ -6,7 +6,7 @@
   background: rgba(255, 246, 228, 0.94);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border-bottom: 1px solid var(--c-border);
+  box-shadow: 0 4px 16px -10px rgba(59, 31, 20, 0.2);
   transition: transform 280ms ease;
 }
 

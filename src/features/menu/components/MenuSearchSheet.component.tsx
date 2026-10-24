@@ -28,7 +28,7 @@ export function MenuSearchSheet({ ctx }: { ctx: MenuCtx }) {
             type="search"
             value={searchDraft}
             onChange={(event) => onSearchInput(event.target.value)}
-            placeholder="Busca tequeños, quesillo, torta…"
+            placeholder="¿Qué se te antoja hoy?"
             className={styles.input}
             enterKeyHint="search"
             autoComplete="off"

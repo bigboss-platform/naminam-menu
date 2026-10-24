@@ -1,0 +1,8 @@
+/* max-w-4xl mx-auto px-4 pb-14 */
+.quote {
+  width: 100%;
+  max-width: 896px;
+  margin: 0 auto;
+  padding: 0 16px 56px;
+  scroll-margin-top: 24px;
+}

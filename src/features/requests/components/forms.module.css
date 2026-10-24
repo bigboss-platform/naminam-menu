@@ -20,8 +20,9 @@
   flex-direction: column;
   gap: var(--space-md);
   padding: var(--space-lg) var(--space-md);
-  border: 2px dashed var(--c-border);
+  border: var(--form-fieldset-border, 2px dashed var(--c-border));
   border-radius: var(--radius-xl);
+  background: var(--form-fieldset-bg, transparent);
 }
 
 .legend {
@@ -54,9 +55,9 @@
 .input {
   width: 100%;
   min-height: 52px;
-  padding: var(--space-12) var(--space-md);
-  border: 2px solid var(--c-border);
-  border-radius: var(--radius-lg);
+  padding: var(--space-12) var(--form-input-padding-x, var(--space-md));
+  border: var(--form-input-border, 2px solid var(--c-border));
+  border-radius: var(--form-input-radius, var(--radius-lg));
   background: var(--c-white);
   color: var(--c-cacao);
   font: inherit;
@@ -78,6 +79,7 @@
 
 textarea.input {
   min-height: 120px;
+  border-radius: var(--form-textarea-radius, var(--radius-lg));
   resize: vertical;
 }
 
@@ -122,7 +124,7 @@ select.input {
   gap: var(--space-sm);
   min-height: 44px;
   padding: var(--space-sm) var(--space-md);
-  border: 2px solid var(--c-border);
+  border: var(--form-input-border, 2px solid var(--c-border));
   border-radius: var(--radius-pill);
   background: var(--c-white);
   font-weight: 700;
@@ -184,8 +186,9 @@ select.input {
   min-height: 56px;
   padding: 0 var(--space-2xl);
   border-radius: var(--radius-pill);
-  background: var(--c-cacao);
-  color: var(--c-arena);
+  border: var(--cartoon-border, none);
+  background: var(--form-submit-bg, var(--c-cacao));
+  color: var(--form-submit-color, var(--c-arena));
   font-family: var(--font-display), cursive;
   font-size: var(--font-size-xl);
   font-weight: 700;

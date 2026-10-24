@@ -40,7 +40,7 @@ export function AddToCart({ product }: { product: Product }) {
       {product.variants.length > 0 && (
         <div className={styles.variant}>
           <label htmlFor={selectId} className={styles.variantLabel}>
-            {product.variantLabel} · {product.variants.length} opciones
+            {product.variantLabel} ({product.variants.length} opciones)
           </label>
           <select id={selectId} className={styles.select} value={variantId} onChange={(event) => setVariantId(event.target.value)}>
             {product.variants.map((item) => (

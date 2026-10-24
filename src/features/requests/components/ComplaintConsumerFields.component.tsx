@@ -11,7 +11,7 @@ export function ComplaintConsumerFields({ form }: { form: ComplaintFormCtx }) {
   return (
     <fieldset className={styles.fieldset}>
       <legend className={styles.legend}>1. Identificación del consumidor</legend>
-      <FormField id="lr-fullName" label="Nombre completo" error={errors.fullName}>
+      <FormField id="lr-fullName" label="¿Cuál es tu nombre completo?" error={errors.fullName}>
         <input
           {...fieldAria('lr-fullName', errors.fullName)}
           autoComplete="name"
@@ -20,7 +20,7 @@ export function ComplaintConsumerFields({ form }: { form: ComplaintFormCtx }) {
         />
       </FormField>
       <div className={styles.row}>
-        <FormField id="lr-documentType" label="Tipo de documento" error={errors.documentType}>
+        <FormField id="lr-documentType" label="¿Qué documento tienes?" error={errors.documentType}>
           <select
             {...fieldAria('lr-documentType', errors.documentType)}
             value={values.documentType}
@@ -31,7 +31,7 @@ export function ComplaintConsumerFields({ form }: { form: ComplaintFormCtx }) {
             ))}
           </select>
         </FormField>
-        <FormField id="lr-documentNumber" label="Número de documento" error={errors.documentNumber}>
+        <FormField id="lr-documentNumber" label="¿Cuál es el número de tu documento?" error={errors.documentNumber}>
           <input
             {...fieldAria('lr-documentNumber', errors.documentNumber)}
             inputMode="text"
@@ -40,7 +40,7 @@ export function ComplaintConsumerFields({ form }: { form: ComplaintFormCtx }) {
           />
         </FormField>
       </div>
-      <FormField id="lr-address" label="Domicilio" error={errors.address}>
+      <FormField id="lr-address" label="¿Dónde vives?" error={errors.address}>
         <input
           {...fieldAria('lr-address', errors.address)}
           autoComplete="street-address"
@@ -49,7 +49,7 @@ export function ComplaintConsumerFields({ form }: { form: ComplaintFormCtx }) {
         />
       </FormField>
       <div className={styles.row}>
-        <FormField id="lr-phone" label="Celular" error={errors.phone}>
+        <FormField id="lr-phone" label="¿Cuál es tu celular?" error={errors.phone}>
           <input
             {...fieldAria('lr-phone', errors.phone)}
             type="tel"
@@ -60,7 +60,7 @@ export function ComplaintConsumerFields({ form }: { form: ComplaintFormCtx }) {
             onChange={(event) => setField('phone', event.target.value)}
           />
         </FormField>
-        <FormField id="lr-email" label="Correo electrónico" error={errors.email}>
+        <FormField id="lr-email" label="¿Cuál es tu correo?" error={errors.email}>
           <input
             {...fieldAria('lr-email', errors.email)}
             type="email"
@@ -70,7 +70,7 @@ export function ComplaintConsumerFields({ form }: { form: ComplaintFormCtx }) {
           />
         </FormField>
       </div>
-      <FormField id="lr-parentName" label="Padre, madre o apoderado (si eres menor de edad)" optional error={errors.parentName}>
+      <FormField id="lr-parentName" label="Si eres menor de edad, ¿quién es tu padre, madre o apoderado?" optional error={errors.parentName}>
         <input
           {...fieldAria('lr-parentName', errors.parentName)}
           value={values.parentName}

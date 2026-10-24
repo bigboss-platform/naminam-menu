@@ -37,7 +37,7 @@ export function QuoteForm({ tone = 'default' }: { tone?: 'default' | 'light' }) 
   return (
     <form className={styles.form} onSubmit={form.handleSubmit} noValidate>
       <div className={styles.row}>
-        <FormField id="quote-name" label="Nombre y apellido" error={errors.name}>
+        <FormField id="quote-name" label="¿Cómo te llamas?" error={errors.name}>
           <input
             {...fieldAria('quote-name', errors.name)}
             autoComplete="name"
@@ -46,7 +46,7 @@ export function QuoteForm({ tone = 'default' }: { tone?: 'default' | 'light' }) 
             onChange={(event) => setField('name', event.target.value)}
           />
         </FormField>
-        <FormField id="quote-whatsapp" label="WhatsApp" error={errors.whatsapp}>
+        <FormField id="quote-whatsapp" label="¿Cuál es tu WhatsApp?" error={errors.whatsapp}>
           <input
             {...fieldAria('quote-whatsapp', errors.whatsapp)}
             type="tel"

@@ -32,7 +32,7 @@ export function LoyaltyForm() {
 
   return (
     <form className={styles.form} onSubmit={form.handleSubmit} noValidate>
-      <FormField id="loyalty-name" label="Nombre y apellido" error={errors.name}>
+      <FormField id="loyalty-name" label="¿Cómo te llamas?" error={errors.name}>
         <input
           {...fieldAria('loyalty-name', errors.name)}
           autoComplete="name"
@@ -40,7 +40,7 @@ export function LoyaltyForm() {
           onChange={(event) => setField('name', event.target.value)}
         />
       </FormField>
-      <FormField id="loyalty-whatsapp" label="WhatsApp" error={errors.whatsapp}>
+      <FormField id="loyalty-whatsapp" label="¿Cuál es tu WhatsApp?" error={errors.whatsapp}>
         <input
           {...fieldAria('loyalty-whatsapp', errors.whatsapp)}
           type="tel"
@@ -51,7 +51,7 @@ export function LoyaltyForm() {
           onChange={(event) => setField('whatsapp', event.target.value)}
         />
       </FormField>
-      <FormField id="loyalty-orderCode" label="Código de tu pedido" optional error={errors.orderCode}>
+      <FormField id="loyalty-orderCode" label="¿Cuál es el código de tu pedido?" optional error={errors.orderCode}>
         <input
           {...fieldAria('loyalty-orderCode', errors.orderCode)}
           placeholder="PED-…"

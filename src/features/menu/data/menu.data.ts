@@ -38,7 +38,7 @@ function product(input: ProductInput): Product {
     isSeasonal: false,
     isAddOn: false,
     stockStatus: 'in_stock',
-    variantLabel: 'Sabor',
+    variantLabel: '¿Qué sabor quieres?',
     variants: [],
     mediaType: 'image',
     mediaUrl: '',
@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
     ]),
   }),
   product({
-    slug: 'salsas', name: 'Salsas de la casa', categoryId: 'pasapalos-salados', isAddOn: true, variantLabel: 'Sabor',
+    slug: 'salsas', name: 'Salsas de la casa', categoryId: 'pasapalos-salados', isAddOn: true,
     note: 'Pote de 120 ml',
     description: 'El compañero perfecto para tus tequeños. Tres sabores hechos en casa.',
     variants: variants([['Guasacaca', 5], ['Salsa rosada', 5], ['Ají de huacatay', 6]]),
@@ -69,7 +69,7 @@ export const PRODUCTS: Product[] = [
     slug: 'mini-empanadas', name: 'Mini empanadas', categoryId: 'pasapalos-salados', price: 20, stockStatus: 'on_order',
     note: 'Bandeja de 10',
     description: 'Empanaditas de harina de maíz, doraditas por fuera y jugosas por dentro.',
-    variantLabel: 'Relleno', variants: variants([['Carne mechada', 20], ['Pollo', 20], ['Queso', 18]]),
+    variantLabel: '¿De qué las quieres?', variants: variants([['Carne mechada', 20], ['Pollo', 20], ['Queso', 18]]),
   }),
 
   // ── Pasapalos dulces ──
@@ -92,14 +92,14 @@ export const PRODUCTS: Product[] = [
 
   // ── Postres ──
   product({
-    slug: 'quesillo', name: 'Quesillo', categoryId: 'postres', isFeatured: true, badge: '¡Top 1!', variantLabel: 'Variante',
+    slug: 'quesillo', name: 'Quesillo', categoryId: 'postres', isFeatured: true, badge: '¡Top 1!', variantLabel: '¿Cuál quesillo quieres?',
     note: '13 cm de diámetro · tupper hexagonal',
     description: 'El flan venezolano más cremoso, bañado en caramelo. Te llevas caramelo extra aparte.',
     story: 'El quesillo es la crema volteada venezolana: más denso y cremoso que un flan, con sus característicos huequitos. Llega en un tupper hexagonal reusable y con una bolsita de caramelo extra, porque nunca sobra.',
     variants: variants([['Clásico', 25], ['Café', 27], ['Coco', 27], ['Lúcuma', 28]]),
   }),
   product({
-    slug: 'tortas', name: 'Tortas', categoryId: 'postres', isFeatured: true, variantLabel: 'Torta',
+    slug: 'tortas', name: 'Tortas', categoryId: 'postres', isFeatured: true, variantLabel: '¿Qué torta quieres?',
     note: 'Porción familiar (8 porciones)',
     description: 'Bizcochos húmedos de receta casera para cumpleaños, reuniones o porque sí.',
     story: 'Cada torta se hornea el mismo día de la entrega. Si quieres una decoración especial, un mensaje o un tamaño distinto, pídela desde la sección Cotizar.',

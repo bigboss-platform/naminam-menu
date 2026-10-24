@@ -19,7 +19,7 @@ export function MenuToolbar({ ctx }: { ctx: MenuCtx }) {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Busca tequeños, quesillo, torta…"
+          placeholder="¿Qué se te antoja hoy?"
           className={styles.searchInput}
           enterKeyHint="search"
           autoComplete="off"

@@ -1,0 +1,12 @@
+.credits {
+  margin-top: var(--space-xl);
+  font-size: var(--font-size-xs);
+  color: var(--c-text-muted);
+  text-align: center;
+  opacity: 0.85;
+}
+
+.credits a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

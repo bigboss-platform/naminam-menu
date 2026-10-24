@@ -77,16 +77,16 @@
   padding: var(--space-lg);
   border-radius: var(--radius-xl);
   background: var(--c-white);
-  border-top: 6px solid var(--c-turquesa);
+  border: 3px solid var(--c-turquesa);
   box-shadow: var(--shadow-1);
 }
 
 .value:nth-child(2) {
-  border-top-color: var(--c-guayaba);
+  border-color: var(--c-guayaba);
 }
 
 .value:nth-child(3) {
-  border-top-color: var(--c-manjar);
+  border-color: var(--c-manjar);
 }
 
 .value .material-symbols-outlined {

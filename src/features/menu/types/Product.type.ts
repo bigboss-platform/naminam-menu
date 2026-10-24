@@ -42,7 +42,7 @@ export type Product = {
   /** Add-ons (salsas) are sold to go with other products. */
   isAddOn: boolean;
   stockStatus: StockStatus;
-  /** What the selector is called ("Sabor", "Tamaño"). */
+  /** The selector's question ("¿Qué sabor quieres?"). */
   variantLabel: string;
   /** Empty = single option at `price`. */
   variants: ProductVariant[];

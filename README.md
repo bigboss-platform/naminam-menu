@@ -3,6 +3,12 @@
 Landing + menú + carrito sin pasarela de pago para Los Antojitos de Santanita (Lima, SMP).
 Basado en el sitio de Ñami Ñam (Next.js 16 + React 19 + CSS Modules). **MVP: sin base de datos.**
 
+Dos versiones del mismo sitio (comparten datos, carrito y formularios):
+
+- **v1** — `/`, `/menu`, … (`src/app/(v1)/`): nuestro layout con la marca de Santanita.
+- **v2** — `/v2`, `/v2/menu`, … (`src/app/v2/` + `src/features/v2/`): el mockup de la clienta
+  (`stitch_pixel_perfect_landing_page_clone`), Fredoka + Quicksand, contornos "cartoon".
+
 ```bash
 npm install
 npm run dev        # http://localhost:3000
@@ -32,7 +38,8 @@ Mientras el WhatsApp sea el falso, la pantalla final muestra cómo llegaría el 
 |---|---|
 | Productos, precios, variantes, stock, temporada | `src/features/menu/data/menu.data.ts` |
 | WhatsApp, Instagram, Facebook, horarios, correo, RUC | `src/features/core/config/business.config.ts` |
-| Logo, mascota, Lotties, fotos | `src/features/core/config/brandAssets.config.ts` (archivos en `public/brand/`) |
+| Logo, mascota, Lotties, fotos (+ créditos) | `src/features/core/config/brandAssets.config.ts` (archivos en `public/brand/`) |
+| Estilo de la v2 (colores y medidas del mockup) | `src/features/v2/styles/V2Theme.module.css` |
 | Colores y tipografías | `src/app/globals.css` (`:root`) y `src/app/layout.tsx` |
 | Textos de Consejos | `src/features/content/data/tips.data.ts` |
 | Cómo ordenar, Sobre Santanita, testimonios | `src/features/content/data/pages.data.ts` |

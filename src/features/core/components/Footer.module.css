@@ -107,7 +107,6 @@ a.contactRow:hover {
   gap: var(--space-xs);
   margin-top: var(--space-sm);
   padding-top: var(--space-12);
-  border-top: 1px solid rgba(246, 210, 149, 0.25);
   font-size: var(--font-size-sm);
 }
 
@@ -121,7 +120,6 @@ a.contactRow:hover {
   max-width: var(--content-max);
   margin: var(--space-2xl) auto 0;
   padding-top: var(--space-lg);
-  border-top: 1px solid rgba(246, 210, 149, 0.2);
   font-size: var(--font-size-sm);
   opacity: 0.8;
   text-align: center;

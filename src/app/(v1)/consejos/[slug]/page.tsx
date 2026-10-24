@@ -52,7 +52,7 @@ export default async function TipArticlePage({ params }: ArticlePageProps) {
           ))}
         </ul>
         <Link href="/consejos" className={styles.back}>
-          ← Todos los consejos
+          Ver todos los consejos
         </Link>
       </nav>
     </ContentPage>

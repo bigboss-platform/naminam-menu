@@ -2,12 +2,13 @@
 
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Image from 'next/image';
+import { BRAND_ASSETS } from '../config/brandAssets.config';
 import styles from './BrandAnimation.module.css';
 
 type BrandAnimationProps = {
   /** .lottie / .json path (BRAND_ASSETS). Preferred when set. */
   lottieSrc?: string;
-  /** Static image fallback (BRAND_ASSETS). */
+  /** Static image fallback — defaults to the detailed circular mascot. */
   imageSrc?: string;
   /** Accessible description, and the placeholder caption while no asset exists. */
   label: string;
@@ -18,10 +19,10 @@ type BrandAnimationProps = {
 };
 
 /**
- * Mascot illustrations and Lottie moments. Lottie → image → branded placeholder,
- * so pages look finished before the client's assets arrive.
+ * Mascot illustrations and Lottie moments: Lottie when it exists, otherwise the circular mascot
+ * image (BRAND_ASSETS.mascot), otherwise a branded placeholder.
  */
-export function BrandAnimation({ lottieSrc = '', imageSrc = '', label, emoji = '✨', loop = true, className = '' }: BrandAnimationProps) {
+export function BrandAnimation({ lottieSrc = '', imageSrc = BRAND_ASSETS.mascot, label, emoji = '✨', loop = true, className = '' }: BrandAnimationProps) {
   if (lottieSrc) {
     return (
       <div className={`${styles.frame} ${className}`} role="img" aria-label={label}>
@@ -32,7 +33,7 @@ export function BrandAnimation({ lottieSrc = '', imageSrc = '', label, emoji = '
   if (imageSrc) {
     return (
       <div className={`${styles.frame} ${className}`}>
-        <Image src={imageSrc} alt={label} fill sizes="(min-width: 900px) 400px, 80vw" className={styles.image} />
+        <Image src={imageSrc} alt={label} fill sizes="(min-width: 900px) 420px, 80vw" className={styles.image} />
       </div>
     );
   }

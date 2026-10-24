@@ -25,7 +25,7 @@ export default function TipsPage() {
               </span>
               <h2 className={`${styles.title} font-display`}>{article.title}</h2>
               <p className={styles.summary}>{article.summary}</p>
-              <span className={styles.meta}>{article.readingMinutes} min de lectura · Leer →</span>
+              <span className={styles.meta}>{article.readingMinutes} min de lectura · Leer</span>
             </Link>
           </li>
         ))}

@@ -1,0 +1,86 @@
+/*
+ * Version 2 — the client's own mockup (stitch_pixel_perfect_landing_page_clone/code.html).
+ * Its palette, fonts (Fredoka + Quicksand) and "cartoon" outlines: 3.5px / 2px #23120B.
+ * Rule from the client: a colored border goes on all four sides or not at all.
+ *
+ * The --c-* tokens of version 1 are remapped here, so shared pieces (forms, cart rows,
+ * add-to-cart, success screen) take the mockup look without duplicating them.
+ */
+.site {
+  /* Mockup palette (tailwind.config "brand") */
+  --v2-bg: #fde7c9;
+  --v2-cream: #fce7c8;
+  --v2-card-cream: #fbe8d3;
+  --v2-brown: #4a1c0e;
+  --v2-ink: #23120b;
+  --v2-pink: #e94d67;
+  --v2-pink-dark: #c72a48;
+  --v2-pink-stroke: #b32042;
+  --v2-teal: #75c5b5;
+  --v2-yellow: #f3ac34;
+  --v2-soft-yellow: #fff2c6;
+  --v2-soft-teal: #c8ede4;
+  --v2-soft-pink: #fbd2d7;
+  --v2-seasonal: #f8e1ce;
+  --v2-tab: #fff4e4;
+  --v2-avatar: #fff5e6;
+  --v2-border-thick: 3.5px solid var(--v2-ink);
+  --v2-border-thin: 2px solid var(--v2-ink);
+  --v2-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --v2-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --v2-max: 1152px;
+
+  /* Fonts: Fredoka everywhere (mockup body), Quicksand in the footer */
+  --font-display: var(--font-fredoka);
+  --font-sans: var(--font-fredoka);
+
+  /* Version 1 tokens → mockup colors (shared components) */
+  --c-bg: var(--v2-bg);
+  --c-text: var(--v2-ink);
+  --c-text-muted: var(--v2-brown);
+  --c-cacao: var(--v2-ink);
+  --c-cocoa: var(--v2-brown);
+  --c-guayaba: var(--v2-pink);
+  --c-guayaba-deep: var(--v2-pink-dark);
+  --c-fresa: var(--v2-pink);
+  --c-fresa-deep: var(--v2-pink-dark);
+  --c-turquesa: var(--v2-teal);
+  --c-turquesa-soft: var(--v2-soft-teal);
+  --c-manjar: var(--v2-yellow);
+  --c-arena: var(--v2-cream);
+  --c-chip: var(--v2-card-cream);
+  --c-border: var(--v2-ink);
+  --c-success: #1f7a6c;
+
+  /* Shared forms / buttons in cartoon style */
+  --cartoon-border: var(--v2-border-thin);
+  --form-input-border: var(--v2-border-thin);
+  --form-input-radius: 9999px;
+  --form-textarea-radius: 28px;
+  --form-select-radius: 9999px;
+  --form-input-padding-x: 24px;
+  --form-fieldset-border: var(--v2-border-thick);
+  --form-fieldset-bg: var(--v2-tab);
+  --form-submit-bg: var(--v2-ink);
+  --form-submit-color: #fff;
+  --add-button-bg: var(--v2-pink);
+  --add-button-color: #fff;
+  --success-border: var(--v2-border-thick);
+
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--v2-bg);
+  color: var(--v2-ink);
+  font-family: var(--font-fredoka), 'Fredoka', sans-serif;
+  font-weight: 500;
+}
+
+.site ::selection {
+  background: var(--v2-pink);
+  color: #fff;
+}
+
+.main {
+  flex: 1;
+}

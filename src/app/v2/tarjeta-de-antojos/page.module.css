@@ -1,0 +1,31 @@
+.card {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 40px;
+  padding: 20px;
+  border: var(--v2-border-thick);
+  border-radius: 24px;
+  background: var(--v2-pink);
+  box-shadow: var(--v2-shadow-md);
+}
+
+.stamp,
+.prize {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--v2-border-thin);
+  border-radius: 50%;
+  background: var(--v2-soft-pink);
+  color: var(--v2-ink);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.prize {
+  background: var(--v2-yellow);
+  font-size: 22px;
+}
