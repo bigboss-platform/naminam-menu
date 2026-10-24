@@ -10,8 +10,9 @@ const fredoka = Fredoka({ subsets: ['latin'], weight: ['400', '500', '600', '700
 const quicksand = Quicksand({ subsets: ['latin'], weight: ['500', '600', '700'], variable: '--font-quicksand', display: 'swap' });
 
 export const metadata: Metadata = {
+  // `absolute`: the root layout's template would otherwise repeat the name twice
   title: {
-    default: 'Los Antojitos de Santanita',
+    absolute: 'Los Antojitos de Santanita · Antojitos venezolanos en Lima',
     template: '%s · Los Antojitos de Santanita',
   },
 };
