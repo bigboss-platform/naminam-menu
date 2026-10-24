@@ -1,4 +1,4 @@
-/** Category slug ("racion", "cheesecake", …) — the back office can create new ones. */
+/** Category slug ("postres", "pasapalos-salados", …). */
 export type CategoryId = string;
 
 export type Category = {
@@ -10,40 +10,45 @@ export type Category = {
 
 export type MediaType = 'image' | 'video';
 
+/** PRD 4.3: "Disponible en stock" · "Disponible por encargo" · "Agotado". */
+export type StockStatus = 'in_stock' | 'on_order' | 'sold_out';
+
+/** One selectable option (flavor/size). Its price replaces the product's base price. */
+export type ProductVariant = {
+  id: string;
+  label: string;
+  /** Soles (PEN). */
+  price: number;
+};
+
 export type Product = {
   slug: string;
   name: string;
   categoryId: CategoryId;
-  /** USD, as listed by the client. */
+  /** Soles (PEN). With variants: the lowest variant price ("Desde S/ 15"). */
   price: number;
   /** One or two sentences — shown on cards (clamped). */
   description: string;
-  /** Short tasting note shown under the name in the menu list. */
+  /** Longer story shown with "Leer más". Empty = no "Leer más". */
+  story: string;
+  /** Short note shown on the card ("Docena", "13 cm de diámetro"). */
   note: string;
-  /** Optional ribbon on the photo ("Favorito de la casa"). Empty = none. */
+  /** Optional ribbon on the photo ("¡Top 1!"). Empty = none. */
   badge: string;
-  /** Shown in "Nuestros favoritos" on the home page. */
+  /** "Los consentidos de la casa" on the home page. */
   isFeatured: boolean;
-  /** Add-ons ("Extra de helado") are listed but not sold on their own. */
+  /** "Especiales de temporada" on the home page. */
+  isSeasonal: boolean;
+  /** Add-ons (salsas) are sold to go with other products. */
   isAddOn: boolean;
+  stockStatus: StockStatus;
+  /** What the selector is called ("Sabor", "Tamaño"). */
+  variantLabel: string;
+  /** Empty = single option at `price`. */
+  variants: ProductVariant[];
   mediaType: MediaType;
-  /** Public photo/video link (set in the back office). Empty = branded placeholder. */
+  /** Public photo/video link. Empty = branded placeholder. */
   mediaUrl: string;
   /** Video cover image. */
   posterUrl: string;
-};
-
-export const EMPTY_PRODUCT: Product = {
-  slug: '',
-  name: '',
-  categoryId: '',
-  price: 0,
-  description: '',
-  note: '',
-  badge: '',
-  isFeatured: false,
-  isAddOn: false,
-  mediaType: 'image',
-  mediaUrl: '',
-  posterUrl: '',
 };

@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100%;
   background: var(--c-card);
-  border: 1px solid var(--c-border);
+  border: 2px solid var(--c-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-1);
   overflow: hidden;
@@ -50,8 +50,8 @@
   max-width: calc(100% - 24px);
   padding: 0 var(--space-12);
   border-radius: var(--radius-pill);
-  background: var(--c-fresa-deep);
-  color: #fff;
+  background: var(--c-guayaba);
+  color: var(--c-white);
   font-size: var(--font-size-xs);
   font-weight: 700;
   line-height: 28px;
@@ -70,7 +70,7 @@
 
 .name {
   font-size: var(--font-size-xl);
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.2;
   color: var(--c-cacao);
 }
@@ -85,57 +85,36 @@
   overflow: hidden;
 }
 
-/* Pinned to the bottom of the card: note left, price + WhatsApp button bottom-right */
-.footer {
-  margin-top: auto;
-  padding-top: var(--space-sm);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-}
-
 .note {
-  min-width: 0;
   font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--c-fresa-deep);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.priceGroup {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-12);
-}
-
-.price {
-  font-size: var(--font-size-xl);
   font-weight: 700;
-  line-height: 1.1;
-  color: var(--c-cacao);
-  font-variant-numeric: tabular-nums;
+  color: var(--c-guayaba-deep);
 }
 
-/* The only action on the card — 48px so it's easy to hit with a finger */
-.whatsappButton {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(37, 211, 102, 0.14);
-  color: var(--c-whatsapp);
-  transition: transform 300ms var(--ease-spring), background-color 200ms ease;
+.story {
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--c-text);
+  padding: var(--space-sm) var(--space-12);
+  border-left: 4px solid var(--c-manjar);
+  border-radius: 4px;
+  background: var(--c-chip);
 }
 
-.whatsappButton:active {
-  transform: scale(0.9);
-  transition: transform 100ms ease;
+.readMore {
+  align-self: flex-start;
+  min-height: 32px;
+  font-weight: 800;
+  font-size: var(--font-size-sm);
+  color: var(--c-success);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Agotado: photo faded, card still readable */
+.cardSoldOut .media {
+  filter: grayscale(0.7);
+  opacity: 0.7;
 }
 
 @media (hover: hover) {
@@ -143,9 +122,6 @@
     box-shadow: var(--shadow-2);
   }
 
-  .whatsappButton:hover {
-    background: rgba(37, 211, 102, 0.24);
-  }
 }
 
 @media (min-width: 900px) {

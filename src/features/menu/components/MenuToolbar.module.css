@@ -18,7 +18,7 @@
 
 .search:focus-within {
   border-color: var(--c-fresa);
-  box-shadow: 0 0 0 3px rgba(226, 125, 140, 0.15);
+  box-shadow: 0 0 0 3px rgba(91, 191, 181, 0.15);
 }
 
 .searchInput {
@@ -108,7 +108,7 @@
     align-items: center;
     gap: var(--space-lg);
     padding: var(--space-md) 0;
-    background: rgba(253, 246, 240, 0.96);
+    background: rgba(255, 246, 228, 0.96);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     transition: transform 280ms ease, opacity 200ms ease;

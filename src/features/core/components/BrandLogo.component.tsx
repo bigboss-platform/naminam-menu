@@ -1,30 +1,39 @@
 import Image from 'next/image';
+import { BRAND_ASSETS } from '../config/brandAssets.config';
 import styles from './BrandLogo.module.css';
 
-/**
- * The client's real logo ("ñami ñam" lettering). Asset: public/brand/logo.png — generated
- * from public/brand/logo-original.png by scripts/process-logo.mjs (transparent, trimmed).
- */
-const LOGO_SRC = '/brand/logo.png';
-const LOGO_ASPECT_RATIO = 770 / 522;
-
 type BrandLogoProps = {
-  /** Rendered height in px — width follows the logo's aspect ratio. */
+  /** Rendered height in px (the round badge is square). */
   height: number;
+  /** Shows "Los Antojitos de Santanita" next to the badge. */
+  withName?: boolean;
   /** Above-the-fold logos (top bar) load eagerly. */
   priority?: boolean;
   className?: string;
 };
 
-export function BrandLogo({ height, priority = false, className = '' }: BrandLogoProps) {
+/**
+ * Img_Logo_Main (circular logo, sunset background). Until the client sends it
+ * (BRAND_ASSETS.logo), a placeholder badge in brand colors is drawn instead.
+ */
+export function BrandLogo({ height, withName = false, priority = false, className = '' }: BrandLogoProps) {
   return (
-    <Image
-      src={LOGO_SRC}
-      alt="Ñami Ñam"
-      width={Math.round(height * LOGO_ASPECT_RATIO)}
-      height={height}
-      priority={priority}
-      className={`${styles.logo} ${className}`}
-    />
+    <span className={`${styles.logo} ${className}`}>
+      {BRAND_ASSETS.logo ? (
+        <Image src={BRAND_ASSETS.logo} alt="" width={height} height={height} priority={priority} className={styles.badgeImage} />
+      ) : (
+        <span className={styles.badge} style={{ width: height, height, fontSize: height * 0.5 }} aria-hidden="true">
+          S
+        </span>
+      )}
+      {withName ? (
+        <span className={`${styles.name} font-display`}>
+          <span className={styles.nameSmall}>Los Antojitos de</span>
+          Santanita
+        </span>
+      ) : (
+        <span className="visually-hidden">Los Antojitos de Santanita</span>
+      )}
+    </span>
   );
 }

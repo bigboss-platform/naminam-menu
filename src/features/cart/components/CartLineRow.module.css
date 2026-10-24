@@ -1,0 +1,102 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--c-white);
+  border: 2px solid var(--c-border);
+  animation: fadeInUp 240ms ease both;
+}
+
+.info {
+  min-width: 0;
+  flex: 1 1 160px;
+}
+
+.name {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.variant {
+  font-weight: 700;
+  color: var(--c-guayaba-deep);
+  font-size: var(--font-size-sm);
+}
+
+.unitPrice {
+  font-size: var(--font-size-sm);
+  color: var(--c-cocoa);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--c-chip);
+}
+
+.stepButton {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--c-cacao);
+}
+
+.stepButton .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.stepButton:disabled {
+  opacity: 0.35;
+}
+
+.quantity {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.lineTotal {
+  min-width: 72px;
+  text-align: right;
+  font-family: var(--font-display), cursive;
+  font-weight: 800;
+  font-size: var(--font-size-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+.remove {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--c-cocoa);
+}
+
+.remove .material-symbols-outlined {
+  font-size: 20px;
+}
+
+@media (hover: hover) {
+  .remove:hover {
+    background: var(--c-fresa-soft);
+    color: var(--c-guayaba);
+  }
+}

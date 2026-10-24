@@ -4,10 +4,9 @@ import { getSiteData } from '@/server/siteData';
 
 export const metadata: Metadata = {
   title: 'Menú',
-  description: 'Postres por ración, sbriciolatas y cheesecakes de Ñami Ñam, con precios.',
+  description: 'Tequeños, quesillos, tortas, pasapalos y bebidas venezolanas en Lima. Precios en soles.',
 };
 
-export const revalidate = 60;
 
 export default async function MenuPage() {
   const { products, categories } = await getSiteData();

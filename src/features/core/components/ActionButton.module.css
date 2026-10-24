@@ -5,7 +5,8 @@
   gap: var(--space-sm);
   min-height: 52px;
   padding: 0 var(--space-lg);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display), cursive;
   font-size: var(--font-size-md);
   font-weight: 700;
   white-space: nowrap;
@@ -44,14 +45,15 @@
   border-radius: var(--radius);
 }
 
+/* Primary action = Turquesa with Cacao text (white on Turquesa fails contrast) */
 .primary {
-  background: var(--c-cacao);
-  color: var(--c-card);
-  box-shadow: 0 4px 16px -4px rgba(61, 35, 20, 0.4);
+  background: var(--c-turquesa);
+  color: var(--c-cacao);
+  box-shadow: 0 4px 16px -4px rgba(59, 31, 20, 0.4);
 }
 
 .soft {
-  background: #fbdde1;
+  background: var(--c-turquesa-soft);
   color: var(--c-cacao);
 }
 
@@ -61,24 +63,33 @@
   border: 1.5px solid var(--c-border);
 }
 
-/* WhatsApp is the primary ordering channel — prominent, but on-brand (cacao), with the green glyph */
+/* WhatsApp CTA — Guayaba (high impact) with white text */
 .whatsapp {
-  background: var(--c-cacao);
-  color: var(--c-card);
-  box-shadow: 0 4px 16px -4px rgba(61, 35, 20, 0.4);
+  background: var(--c-guayaba);
+  color: var(--c-white);
+  box-shadow: 0 4px 16px -4px rgba(59, 31, 20, 0.4);
 }
 
 .whatsapp svg {
-  color: var(--c-whatsapp);
+  color: var(--c-white);
+}
+
+/* Dark button (forms on colored backgrounds) */
+.dark {
+  background: var(--c-cacao);
+  color: var(--c-arena);
+  box-shadow: 0 4px 16px -4px rgba(59, 31, 20, 0.4);
 }
 
 @media (hover: hover) {
   .primary:hover,
-  .whatsapp:hover {
-    box-shadow: 0 8px 24px -6px rgba(61, 35, 20, 0.5);
+  .whatsapp:hover,
+  .dark:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -6px rgba(59, 31, 20, 0.5);
   }
   .soft:hover {
-    background: #f9cfd5;
+    background: #c3e8e3;
   }
   .outline:hover {
     background: var(--c-bg);
@@ -89,4 +100,10 @@
   .block {
     width: auto;
   }
+}
+
+/* Placeholder link (no real account yet): looks available but muted */
+.button[aria-disabled='true'] {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

@@ -1,0 +1,211 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (min-width: 700px) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  border: 2px dashed var(--c-border);
+  border-radius: var(--radius-xl);
+}
+
+.legend {
+  padding: 0 var(--space-sm);
+  font-family: var(--font-display), cursive;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--c-guayaba);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  padding-left: var(--space-xs);
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: var(--form-label-color, var(--c-cacao));
+}
+
+.optional {
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.input {
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-12) var(--space-md);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  background: var(--c-white);
+  color: var(--c-cacao);
+  font: inherit;
+  font-size: 16px; /* 16px or more: iOS does not zoom on focus */
+  font-weight: 600;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.input::placeholder {
+  color: #a08474;
+  font-weight: 500;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--c-turquesa);
+  box-shadow: 0 0 0 4px rgba(91, 191, 181, 0.3);
+}
+
+textarea.input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+select.input {
+  appearance: none;
+  padding-right: 44px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--c-cacao) 50%),
+    linear-gradient(135deg, var(--c-cacao) 50%, transparent 50%);
+  background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.fieldInvalid .input {
+  border-color: var(--c-guayaba);
+}
+
+.error,
+.hint {
+  padding-left: var(--space-xs);
+  font-size: var(--font-size-sm);
+}
+
+.error {
+  color: var(--form-error-color, var(--c-guayaba-deep));
+  font-weight: 700;
+}
+
+.hint {
+  color: var(--form-hint-color, var(--c-cocoa));
+}
+
+.choiceGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-pill);
+  background: var(--c-white);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.choice:has(input:checked) {
+  border-color: var(--c-turquesa);
+  background: var(--c-turquesa-soft);
+}
+
+.choice input,
+.checkbox input {
+  accent-color: var(--c-success);
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  margin-top: var(--space-sm);
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.formMessage {
+  color: var(--c-guayaba-deep);
+  font-weight: 700;
+  text-align: center;
+}
+
+.formMessageLight {
+  color: var(--c-white);
+}
+
+.submit {
+  min-height: 56px;
+  padding: 0 var(--space-2xl);
+  border-radius: var(--radius-pill);
+  background: var(--c-cacao);
+  color: var(--c-arena);
+  font-family: var(--font-display), cursive;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  box-shadow: 0 6px 20px -6px rgba(59, 31, 20, 0.5);
+  transition: transform 300ms var(--ease-spring), background-color 200ms ease, color 200ms ease;
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.submit:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) {
+  .submit:not(:disabled):hover {
+    background: var(--c-turquesa);
+    color: var(--c-cacao);
+    transform: translateY(-2px);
+  }
+}

@@ -23,12 +23,12 @@ export function MenuSearchSheet({ ctx }: { ctx: MenuCtx }) {
       >
         <label className={styles.field}>
           <span className="material-symbols-outlined">search</span>
-          <span className="visually-hidden">¿Qué postre buscas?</span>
+          <span className="visually-hidden">¿Qué se te antoja?</span>
           <input
             type="search"
             value={searchDraft}
             onChange={(event) => onSearchInput(event.target.value)}
-            placeholder="Busca Matilda, cheesecake, Nutella…"
+            placeholder="Busca tequeños, quesillo, torta…"
             className={styles.input}
             enterKeyHint="search"
             autoComplete="off"

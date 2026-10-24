@@ -18,7 +18,7 @@ export function MenuContainer({ products, categories }: { products: Product[]; c
       <div className={`${styles.page} page-fade-in`}>
         <header className={styles.header}>
           <h1 className={`${styles.title} font-display`}>Nuestro menú</h1>
-          <p className={styles.subtitle}>Porciones y cheesecakes para disfrutar o encargar.</p>
+          <p className={styles.subtitle}>Escoge lo que se te antoje, agrégalo al carrito y solicita tu pedido.</p>
         </header>
         {/* Desktop: sticky toolbar */}
         <MenuToolbar ctx={ctx} />

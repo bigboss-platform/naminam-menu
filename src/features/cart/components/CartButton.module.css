@@ -1,0 +1,46 @@
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--c-turquesa);
+  color: var(--c-cacao);
+  transition: transform 300ms var(--ease-spring);
+}
+
+.button:active {
+  transform: scale(0.9);
+}
+
+.count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--c-bg);
+  border-radius: var(--radius-pill);
+  background: var(--c-guayaba);
+  color: var(--c-white);
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  animation: pop 400ms var(--ease-spring);
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.4);
+  }
+  to {
+    transform: scale(1);
+  }
+}

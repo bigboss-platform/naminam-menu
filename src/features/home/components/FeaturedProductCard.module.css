@@ -1,0 +1,106 @@
+/* Colored frame around a white card (Gemini mockup) */
+.frame {
+  padding: 8px;
+  border-radius: 32px;
+  box-shadow: var(--shadow-2);
+  transition: transform 300ms var(--ease-spring);
+}
+
+.turquesa {
+  background: var(--c-turquesa);
+}
+
+.guayaba {
+  background: var(--c-guayaba);
+}
+
+/* Third frame: Cacao (a Manjar frame would vanish on the Manjar band) */
+.cacao {
+  background: var(--c-cacao);
+}
+
+@media (hover: hover) {
+  .frame:hover {
+    transform: translateY(-6px) rotate(-0.6deg);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  height: 100%;
+  padding: var(--space-md);
+  border-radius: 24px;
+  background: var(--c-white);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 1;
+  padding: 2px var(--space-12);
+  border-radius: var(--radius-pill);
+  background: var(--c-guayaba);
+  color: var(--c-white);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+}
+
+.name {
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  text-align: center;
+}
+
+.description {
+  color: var(--c-text-muted);
+  text-align: center;
+  font-size: var(--font-size-md);
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.price {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--c-cacao);
+  color: var(--c-arena);
+  font-weight: 800;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--c-turquesa);
+  color: var(--c-cacao);
+  font-family: var(--font-display), cursive;
+  font-weight: 700;
+}
+
+.link .material-symbols-outlined {
+  font-size: 20px;
+}

@@ -1,7 +1,7 @@
-/** "$7" for whole amounts, "$6.50" otherwise — matches how the client lists prices. */
+/** Soles: "S/ 25" for whole amounts, "S/ 6.50" otherwise. */
 export function formatPrice(amount: number): string {
   const isWholeAmount = Number.isInteger(amount);
-  return `$${isWholeAmount ? amount.toString() : amount.toFixed(2)}`;
+  return `S/ ${isWholeAmount ? amount.toString() : amount.toFixed(2)}`;
 }
 
 /** "10:00" → "10:00 a. m."; "19:30" → "7:30 p. m." */

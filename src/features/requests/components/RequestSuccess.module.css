@@ -1,0 +1,99 @@
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-xl) var(--space-md);
+  border-radius: var(--radius-xl);
+  background: var(--c-white);
+  color: var(--c-cacao);
+  text-align: center;
+  box-shadow: var(--shadow-2);
+  animation: fadeInUp 320ms ease both;
+}
+
+.animation {
+  width: 140px;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--c-guayaba);
+  line-height: 1.15;
+}
+
+.code {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--c-chip);
+  font-size: var(--font-size-md);
+}
+
+.code strong {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.description {
+  max-width: 460px;
+  font-size: var(--font-size-md);
+}
+
+.emailNote {
+  font-size: var(--font-size-sm);
+  color: var(--c-cocoa);
+}
+
+.whatsappButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 52px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-pill);
+  background: var(--c-whatsapp);
+  color: var(--c-cacao);
+  font-family: var(--font-display), cursive;
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+  box-shadow: var(--shadow-1);
+}
+
+.whatsappButton[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.preview {
+  width: 100%;
+  max-width: 480px;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.preview summary {
+  color: var(--c-cocoa);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.message {
+  margin-top: var(--space-sm);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
+  background: #dcf8c6;
+  color: #1f2c1b;
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.reset {
+  margin-top: var(--space-sm);
+  color: var(--c-cocoa);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

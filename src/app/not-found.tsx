@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className={`${styles.page} page-fade-in`}>
       <BrandLogo height={96} />
-      <h1 className={`${styles.title} font-display`}>Este postre no está en la vitrina</h1>
+      <h1 className={`${styles.title} font-display`}>¡Ups! Este antojito no existe</h1>
       <p className={styles.text}>Puede que el enlace haya cambiado. Mira todo lo que tenemos hoy.</p>
       <ActionButton href="/menu" isBlockOnMobile={false}>
         Ver menú

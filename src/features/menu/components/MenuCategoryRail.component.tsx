@@ -8,9 +8,11 @@ const DEFAULT_CATEGORY_ICON = 'cake';
 
 /** Icon per category for the round rail buttons (experiment — text labels were the previous version). */
 const CATEGORY_ICONS: Record<string, string> = {
-  racion: 'cake',
-  sbriciolata: 'bakery_dining',
-  cheesecake: 'pie_chart',
+  'pasapalos-salados': 'tapas',
+  'pasapalos-dulces': 'cookie',
+  postres: 'cake',
+  bebidas: 'local_bar',
+  'inventos-del-mes': 'auto_awesome',
 };
 
 /**

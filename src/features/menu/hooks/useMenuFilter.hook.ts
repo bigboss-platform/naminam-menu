@@ -10,7 +10,7 @@ export type MenuPill = { id: MenuFilterId; label: string };
 
 export type MenuSectionData = { category: Category; products: Product[] };
 
-/** Lowercase + strip accents so "tiramisu" finds "Tiramisú" and "pirulín" finds "Pirulin". */
+/** Lowercase + strip accents so "tequenos" finds "Tequeños" and "lucuma" finds "Lúcuma". */
 function normalize(text: string): string {
   return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 }
@@ -40,7 +40,7 @@ export function useMenuFilter(products: Product[], categories: Category[]) {
   const normalizedQuery = normalize(query);
   const matchesQuery = (product: Product) =>
     normalizedQuery === '' ||
-    normalize(`${product.name} ${product.note} ${product.description}`).includes(normalizedQuery);
+    normalize(`${product.name} ${product.note} ${product.description} ${product.variants.map((variant) => variant.label).join(' ')}`).includes(normalizedQuery);
   const matchesFilter = (product: Product) => activeFilter === 'todos' || product.categoryId === activeFilter;
 
   const sections: MenuSectionData[] = categories.map((category) => ({

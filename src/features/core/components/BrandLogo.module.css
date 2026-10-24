@@ -1,5 +1,43 @@
 .logo {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
   flex-shrink: 0;
-  object-fit: contain;
+}
+
+.badgeImage {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Placeholder: sunset circle (Manjar → Guayaba) with a Cacao ring */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 3px solid var(--c-cacao);
+  background: radial-gradient(circle at 50% 78%, var(--c-arena) 0 24%, transparent 25%),
+    linear-gradient(180deg, var(--c-manjar) 0%, var(--c-guayaba) 100%);
+  color: var(--c-cacao);
+  font-family: var(--font-display), cursive;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  color: var(--c-guayaba);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.nameSmall {
+  color: var(--c-cacao);
+  font-size: 12px;
+  font-weight: 600;
 }

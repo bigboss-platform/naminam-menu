@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { externalLinkProps, INERT_LINK } from '../utils/whatsapp.util';
 import styles from './ActionButton.module.css';
 
-export type ActionButtonVariant = 'primary' | 'soft' | 'outline' | 'whatsapp';
+export type ActionButtonVariant = 'primary' | 'soft' | 'outline' | 'whatsapp' | 'dark';
 
 type ActionButtonProps = {
   href: string;
@@ -41,9 +42,9 @@ export function ActionButton({
     </>
   );
 
-  if (isExternal) {
+  if (isExternal || href === INERT_LINK) {
     return (
-      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
+      <a {...externalLinkProps(href)} className={className}>
         {content}
       </a>
     );

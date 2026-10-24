@@ -22,7 +22,7 @@
 
 .field:focus-within {
   border-color: var(--c-fresa);
-  box-shadow: 0 0 0 3px rgba(226, 125, 140, 0.15);
+  box-shadow: 0 0 0 3px rgba(91, 191, 181, 0.15);
 }
 
 .input {

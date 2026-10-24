@@ -1,0 +1,44 @@
+.card {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--c-manjar), var(--c-guayaba));
+  box-shadow: var(--shadow-2);
+}
+
+.stamp,
+.prize {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 3px dashed rgba(255, 255, 255, 0.8);
+  color: var(--c-white);
+  font-family: var(--font-display), cursive;
+  font-weight: 800;
+  font-size: var(--font-size-lg);
+}
+
+.prize {
+  border-style: solid;
+  background: var(--c-white);
+  font-size: var(--font-size-xl);
+}
+
+.form {
+  padding: var(--space-lg) var(--space-md);
+  border-radius: var(--radius-xl);
+  background: var(--c-white);
+  box-shadow: var(--shadow-1);
+}
+
+@media (min-width: 600px) {
+  .form {
+    padding: var(--space-xl);
+  }
+}

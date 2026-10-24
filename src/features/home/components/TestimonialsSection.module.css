@@ -1,0 +1,107 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+}
+
+/* Swipeable carousel on mobile, grid on desktop */
+.track {
+  list-style: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(300px, 82vw);
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: var(--space-xs) var(--gutter) var(--space-md);
+  margin-inline: calc(var(--gutter) * -1);
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .track {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, 1fr);
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+}
+
+.chat {
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-radius: var(--radius-xl);
+  background: #efe6dc;
+  box-shadow: var(--shadow-1);
+}
+
+.chatHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(59, 31, 20, 0.1);
+  font-size: var(--font-size-sm);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--c-turquesa);
+  font-weight: 800;
+}
+
+.district {
+  display: block;
+  color: var(--c-cocoa);
+  font-size: var(--font-size-xs);
+}
+
+.bubble {
+  position: relative;
+  max-width: 88%;
+  padding: var(--space-sm) var(--space-12) 18px;
+  border-radius: 12px;
+  font-size: var(--font-size-md);
+  line-height: 1.4;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.incoming {
+  align-self: flex-start;
+  background: var(--c-white);
+  border-top-left-radius: 2px;
+}
+
+.outgoing {
+  align-self: flex-end;
+  background: #dcf8c6;
+  border-top-right-radius: 2px;
+}
+
+.time {
+  position: absolute;
+  right: 8px;
+  bottom: 3px;
+  font-size: 10px;
+  color: #6b7c6b;
+}

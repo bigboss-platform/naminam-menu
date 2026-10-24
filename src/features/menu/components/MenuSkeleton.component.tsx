@@ -5,7 +5,7 @@ const SKELETON_CARD_COUNT = 3;
 /** Shown for well under a second after a filter/search change — mirrors the real card layout. */
 export function MenuSkeleton() {
   return (
-    <div className={styles.skeleton} aria-busy="true" aria-label="Cargando postres">
+    <div className={styles.skeleton} aria-busy="true" aria-label="Cargando el menú">
       <div className={`${styles.block} ${styles.title}`} />
       <div className={styles.grid}>
         {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (

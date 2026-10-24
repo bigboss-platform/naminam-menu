@@ -1,18 +1,28 @@
 .footer {
-  margin-top: var(--space-2xl);
-  padding: var(--space-xl) var(--gutter);
-  /* clear the fixed bottom tab bar on mobile */
-  padding-bottom: calc(var(--space-xl) + var(--bottom-nav-height) + env(safe-area-inset-bottom));
-  background: var(--c-bg-alt);
-  border-top: 1px solid var(--c-border);
+  margin-top: var(--space-xl);
+  padding: var(--space-2xl) var(--gutter) calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + var(--space-lg));
+  border-radius: 48px 48px 0 0;
+  background: var(--c-cacao);
+  color: var(--c-arena);
+}
+
+@media (min-width: 1000px) {
+  .footer {
+    padding-bottom: var(--space-xl);
+  }
 }
 
 .inner {
   max-width: var(--content-max);
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 800px) {
+  .inner {
+    grid-template-columns: 1.3fr 1fr 1.2fr;
+  }
 }
 
 .column {
@@ -22,226 +32,97 @@
   gap: var(--space-12);
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
+.brandName {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--c-turquesa);
 }
 
-.tagline {
-  font-size: var(--font-size-xs);
+.copy {
+  max-width: 340px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--c-cocoa);
-}
-
-.callLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  width: 100%;
-  min-height: 48px;
-  padding: 0 var(--space-md);
-  border-radius: var(--radius);
-  background: var(--c-cacao);
-  color: var(--c-card);
-  font-size: var(--font-size-md);
-  font-weight: 700;
-  white-space: nowrap;
-  transition: transform 300ms var(--ease-spring);
-}
-
-.callLink:active {
-  transform: scale(0.97);
-  transition: transform 100ms ease;
-}
-
-.callLink .material-symbols-outlined {
-  font-size: 20px;
-}
-
-/* Desktop can't always place calls — show the number so it can be dialed by hand */
-.phoneNumber {
-  display: none;
-  font-weight: 500;
-  opacity: 0.85;
 }
 
 .columnTitle {
-  font-size: var(--font-size-lg);
-  font-weight: 600;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--c-manjar);
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  font-weight: 700;
+}
+
+.links a,
+.contactRow {
+  transition: color 200ms ease;
+}
+
+.links a:hover,
+a.contactRow:hover {
+  color: var(--c-turquesa);
+}
+
+.complaints {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  border: 2px solid var(--c-arena);
+  border-radius: var(--radius);
+  font-weight: 800;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.complaints:hover {
+  background: var(--c-arena);
   color: var(--c-cacao);
 }
 
-.hoursList {
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.contactRow .material-symbols-outlined {
+  font-size: 20px;
+  color: var(--c-turquesa);
+}
+
+.hours {
   list-style: none;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-12);
+  border-top: 1px solid rgba(246, 210, 149, 0.25);
+  font-size: var(--font-size-sm);
 }
 
-.hoursRow {
+.hours li {
   display: flex;
   justify-content: space-between;
   gap: var(--space-md);
-  padding: var(--space-12) var(--space-md);
-  border-radius: var(--radius);
-  background: var(--c-card);
-  font-size: var(--font-size-sm);
-  font-variant-numeric: tabular-nums;
-  color: var(--c-text-muted);
-}
-
-.hoursDay {
-  font-weight: 700;
-  color: var(--c-text);
-}
-
-.address {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  font-size: var(--font-size-md);
-  color: var(--c-text);
-}
-
-.address .material-symbols-outlined {
-  flex-shrink: 0;
-  font-size: 20px;
-  color: var(--c-fresa-deep);
-}
-
-.map {
-  width: 100%;
-  height: 220px;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-lg);
-  background: var(--c-chip);
 }
 
 .copyright {
   max-width: var(--content-max);
-  margin: var(--space-xl) auto 0;
-  font-size: var(--font-size-xs);
-  color: var(--c-cocoa);
-}
-
-@media (min-width: 900px) {
-  .footer {
-    padding-bottom: var(--space-xl);
-  }
-
-  .inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.4fr;
-    gap: var(--space-2xl);
-  }
-
-  .callLink {
-    width: auto;
-  }
-
-  .phoneNumber {
-    display: inline;
-  }
-}
-
-/* ── Section theme "modern": no band — each block (contact, hours, location) is a soft card
-   on the page background, with consistent spacing ── */
-:global([data-section-theme='modern']) .footer {
-  margin-top: var(--space-xl);
-  padding-top: 0;
-  background: none;
-  border-top: none;
-}
-
-:global([data-section-theme='modern']) .inner {
-  gap: var(--space-md);
-}
-
-:global([data-section-theme='modern']) .column {
-  padding: var(--space-20);
-  background: var(--c-card);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-1);
-}
-
-/* Hours rows sit on a card now — tint them so they still read as rows */
-:global([data-section-theme='modern']) .hoursRow {
-  background: var(--c-chip);
-}
-
-/* ── Section theme "torn": on phones/tablets each block is its own full-width paper band
-   (sand → pink → paper), torn edges between them; on desktop the whole footer is one band ── */
-:global([data-section-theme='torn']) .footer {
-  margin-top: 0;
-  padding-top: 0;
-  background: none;
-  border-top: none;
-}
-
-:global([data-section-theme='torn']) .inner {
-  gap: 0;
-}
-
-:global([data-section-theme='torn']) .column {
-  margin-inline: calc(var(--gutter) * -1);
-  padding-inline: var(--gutter);
-}
-
-/* Bands alternate after the pink favorites band: Horarios sand → Llamar pink → Ubicación paper */
-:global([data-section-theme='torn']) .hoursColumn {
-  --band-bg: var(--c-paper-sand);
-}
-
-:global([data-section-theme='torn']) .contactColumn {
-  --band-bg: var(--c-paper-pink);
-}
-
-:global([data-section-theme='torn']) .locationColumn {
-  --band-bg: var(--c-paper);
-}
-
-@media (min-width: 900px) {
-  :global([data-section-theme='modern']) .inner {
-    gap: var(--space-lg);
-  }
-
-  :global([data-section-theme='torn']) .footer {
-    --band-bg: var(--c-paper-sand);
-    position: relative;
-    padding-top: var(--band-padding-top);
-    background: var(--band-bg);
-  }
-
-  :global([data-section-theme='torn']) .footer::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: calc(100% - 1px);
-    height: var(--tear-height);
-    background: var(--band-bg);
-    clip-path: var(--tear-clip);
-    pointer-events: none;
-  }
-
-  :global([data-section-theme='torn']) .inner {
-    gap: var(--space-2xl);
-  }
-
-  /* One band for the whole footer — the blocks are plain columns inside it */
-  :global([data-section-theme='torn']) .column {
-    margin-inline: 0;
-    padding: 0;
-    background: none;
-  }
-
-  :global([data-section-theme='torn']) .column::before {
-    display: none;
-  }
+  margin: var(--space-2xl) auto 0;
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(246, 210, 149, 0.2);
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
+  text-align: center;
 }

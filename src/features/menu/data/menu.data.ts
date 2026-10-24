@@ -1,65 +1,142 @@
-import type { Category, Product } from '../types/Product.type';
-
-/** Static menu entries — media comes from core/config/media.config.ts (see fallbackSiteData). */
-export type StaticProduct = Omit<Product, 'mediaType' | 'mediaUrl' | 'posterUrl'>;
+import type { Category, Product, ProductVariant } from '../types/Product.type';
 
 /**
- * FALLBACK menu — used only when the site runs without MongoDB (no MONGODB_URI).
- * The live menu is managed in the back office (naminam/backoffice-app) and read by
- * src/server/siteData.ts. Names and prices exactly as provided by the client (naminam/naminam.md).
- * Do NOT add products that are not on that list. Descriptions/notes are draft
- * copy to be confirmed by the client.
+ * MVP menu (static — the site does not read the database yet).
+ * Real data from the PRD: Quesillo 13 cm S/25 (4 variantes), Tequeños desde S/15 (8 sabores),
+ * Tortas desde S/20, Dulce de higo, salsas (3 sabores), temporada: tequeños de pan de jamón y
+ * ponche crema. EVERYTHING ELSE (names, prices, descriptions) IS PLACEHOLDER COPY to be
+ * confirmed by the client. Photos: empty = branded placeholder (see core/config/brandAssets.config.ts).
  */
 
 export const CATEGORIES: Category[] = [
-  { id: 'racion', label: 'Postre', tagline: 'Porciones individuales para darte un gusto.' },
-  { id: 'sbriciolata', label: 'Sbriciolata', tagline: 'Masa quebrada desmigada, horneada y crocante.' },
-  { id: 'cheesecake', label: 'Cheesecake', tagline: 'Cremosos, horneados lento sobre base de galleta.' },
+  { id: 'pasapalos-salados', label: 'Pasapalos salados', tagline: 'Para picar, compartir y repetir.' },
+  { id: 'pasapalos-dulces', label: 'Pasapalos dulces', tagline: 'Bocaditos dulces para cualquier antojo.' },
+  { id: 'postres', label: 'Postres', tagline: 'Recetas venezolanas de casa, con giros peruanos.' },
+  { id: 'bebidas', label: 'Bebidas', tagline: 'Para acompañar (o brindar).' },
+  { id: 'inventos-del-mes', label: 'Inventos del mes', tagline: 'Lo nuevo que salió de la cocina de Santanita.' },
 ];
 
-export const PRODUCTS: StaticProduct[] = [
-  // ── Postre ──
-  { slug: 'matilda', name: 'Matilda', categoryId: 'racion', price: 7, note: 'Chocolate intenso', badge: 'Favorito de la casa', isFeatured: true, isAddOn: false,
-    description: 'Bizcocho húmedo de chocolate oscuro, en capas con ganache aterciopelado.' },
-  { slug: 'torta-de-zanahoria', name: 'Torta de Zanahoria', categoryId: 'racion', price: 7, note: 'Especias y nueces', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Esponjosa, especiada y con su frosting cremoso de queso.' },
-  { slug: 'torta-red-velvet', name: 'Torta Red Velvet', categoryId: 'racion', price: 6.5, note: 'Aterciopelada', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Clásica textura aterciopelada con suave crema de queso.' },
-  { slug: 'brownie', name: 'Brownie', categoryId: 'racion', price: 5, note: 'Centro húmedo', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Chocolate intenso con centro húmedo y costra crujiente.' },
-  { slug: 'brookie', name: 'Brookie', categoryId: 'racion', price: 6.5, note: 'Galleta + brownie', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Lo mejor de dos mundos: base de brownie y capa de galleta con chispas.' },
-  { slug: 'torta-bombon', name: 'Torta Bombón', categoryId: 'racion', price: 8, note: 'Para chocolateros', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Capas de chocolate y crema, con el corazón de un bombón.' },
-  { slug: 'cinnamon-rolls', name: 'Cinnamon Rolls', categoryId: 'racion', price: 4, note: 'Recién horneados', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Rollos de canela tiernos con glaseado de vainilla.' },
-  { slug: 'tiramisu', name: 'Tiramisú', categoryId: 'racion', price: 6.5, note: 'Espresso y mascarpone', badge: '', isFeatured: true, isAddOn: false,
-    description: 'Bizcochos bañados en café espresso, crema de mascarpone y cacao.' },
-  { slug: 'tres-leches', name: 'Tres leches', categoryId: 'racion', price: 5, note: 'Receta tradicional', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Bizcocho esponjoso empapado en nuestra mezcla de tres leches.' },
-  { slug: 'extra-de-helado', name: 'Extra de helado', categoryId: 'racion', price: 3.5, note: 'Ideal con Matilda o Brookie', badge: '', isFeatured: false, isAddOn: true,
-    description: 'Una bola de helado para acompañar tu postre favorito.' },
+type ProductInput = Partial<Product> & Pick<Product, 'slug' | 'name' | 'categoryId' | 'description'>;
 
-  // ── Sbriciolata ──
-  { slug: 'sbriciolata-nutella', name: 'Sbriciolata de Nutella', categoryId: 'sbriciolata', price: 6, note: 'Nutella tibia', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Masa crocante desmigada con un relleno generoso de Nutella.' },
-  { slug: 'sbriciolata-manzana', name: 'Sbriciolata de Manzana', categoryId: 'sbriciolata', price: 6, note: 'Canela y manzana', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Relleno de manzanas especiadas con canela bajo una capa crocante.' },
-  { slug: 'sbriciolata-ricota-y-mora', name: 'Sbriciolata de Ricota y Mora', categoryId: 'sbriciolata', price: 6, note: 'Moras silvestres', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Ricota suave con mora, entre dos capas de masa desmigada.' },
+function variants(list: [string, number][]): ProductVariant[] {
+  return list.map(([label, price]) => ({
+    id: label.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-'),
+    label,
+    price,
+  }));
+}
 
-  // ── Cheesecake ──
-  { slug: 'cheesecake-fresa', name: 'Cheesecake de Fresa', categoryId: 'cheesecake', price: 6, note: 'Fresas naturales', badge: '', isFeatured: true, isAddOn: false,
-    description: 'Cremoso y horneado lentamente, con compota de fresas.' },
-  { slug: 'cheesecake-frutos-rojos', name: 'Cheesecake de Frutos Rojos', categoryId: 'cheesecake', price: 6, note: 'Moras y arándanos', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Coronado con una mezcla brillante de frutos rojos.' },
-  { slug: 'cheesecake-pistacho', name: 'Cheesecake de Pistacho', categoryId: 'cheesecake', price: 8, note: 'Pistacho de verdad', badge: 'Edición especial', isFeatured: true, isAddOn: false,
-    description: 'Crema de queso con pasta de pistacho y lluvia de pistachos tostados.' },
-  { slug: 'cheesecake-nutella', name: 'Cheesecake de Nutella', categoryId: 'cheesecake', price: 6.5, note: 'Avellana y cacao', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Cremoso, con Nutella por dentro y por encima.' },
-  { slug: 'cheesecake-pirulin', name: 'Cheesecake de Pirulin', categoryId: 'cheesecake', price: 7.2, note: 'Sabor criollo', badge: 'Criollo', isFeatured: false, isAddOn: false,
-    description: 'Un homenaje al clásico venezolano: crema de queso con Pirulin crocante.' },
-  { slug: 'cheesecake-brownie', name: 'Cheesecake de Brownie', categoryId: 'cheesecake', price: 7, note: 'Doble placer', badge: '', isFeatured: false, isAddOn: false,
-    description: 'Base de brownie y trozos de brownie horneados dentro del cheesecake.' },
+function product(input: ProductInput): Product {
+  const variantList = input.variants ?? [];
+  const lowestVariantPrice = variantList.length > 0 ? Math.min(...variantList.map((variant) => variant.price)) : 0;
+  return {
+    price: lowestVariantPrice,
+    story: '',
+    note: '',
+    badge: '',
+    isFeatured: false,
+    isSeasonal: false,
+    isAddOn: false,
+    stockStatus: 'in_stock',
+    variantLabel: 'Sabor',
+    variants: [],
+    mediaType: 'image',
+    mediaUrl: '',
+    posterUrl: '',
+    ...input,
+  };
+}
+
+export const PRODUCTS: Product[] = [
+  // ── Pasapalos salados ──
+  product({
+    slug: 'tequenos', name: 'Tequeños', categoryId: 'pasapalos-salados', isFeatured: true, badge: '¡El más pedido!',
+    note: 'Docena · crudos o fritos',
+    description: 'Deditos de masa crujiente rellenos de queso blanco llanero. Ocho sabores para elegir.',
+    story: 'En Venezuela no hay fiesta sin tequeños. Santanita los enrolla uno por uno con su masa de la casa y queso que se estira de verdad. Puedes pedirlos crujientes y listos para comer, o congelados para freírlos (u hornearlos) en casa cuando te dé el antojo.',
+    variants: variants([
+      ['Queso blanco', 15], ['Queso y jamón', 17], ['Queso y guayaba', 17], ['Queso y chocolate', 18],
+      ['Queso y ají amarillo', 17], ['Queso y tocino', 18], ['Queso y choclo', 17], ['Pizza', 18],
+    ]),
+  }),
+  product({
+    slug: 'salsas', name: 'Salsas de la casa', categoryId: 'pasapalos-salados', isAddOn: true, variantLabel: 'Sabor',
+    note: 'Pote de 120 ml',
+    description: 'El compañero perfecto para tus tequeños. Tres sabores hechos en casa.',
+    variants: variants([['Guasacaca', 5], ['Salsa rosada', 5], ['Ají de huacatay', 6]]),
+  }),
+  product({
+    slug: 'mini-empanadas', name: 'Mini empanadas', categoryId: 'pasapalos-salados', price: 20, stockStatus: 'on_order',
+    note: 'Bandeja de 10',
+    description: 'Empanaditas de harina de maíz, doraditas por fuera y jugosas por dentro.',
+    variantLabel: 'Relleno', variants: variants([['Carne mechada', 20], ['Pollo', 20], ['Queso', 18]]),
+  }),
+
+  // ── Pasapalos dulces ──
+  product({
+    slug: 'dulce-de-higo', name: 'Dulce de higo', categoryId: 'pasapalos-dulces', price: 18, stockStatus: 'on_order',
+    note: 'Frasco de 250 g',
+    description: 'Higos cocidos lento en papelón y canela, como en casa de la abuela.',
+    story: 'Una receta de familia que Santanita prepara en pocas cantidades: los higos se cocinan a fuego bajo durante horas hasta quedar brillantes y tiernos. Delicioso solo, con queso blanco o sobre un helado.',
+  }),
+  product({
+    slug: 'golfeados', name: 'Golfeados', categoryId: 'pasapalos-dulces', price: 16,
+    note: 'Caja de 6',
+    description: 'Espirales de pan dulce con papelón, anís y queso rallado por encima.',
+  }),
+  product({
+    slug: 'besitos-de-coco', name: 'Besitos de coco', categoryId: 'pasapalos-dulces', price: 12, stockStatus: 'sold_out',
+    note: 'Bolsita de 12',
+    description: 'Bocaditos de coco rallado, suaves por dentro y tostaditos por fuera.',
+  }),
+
+  // ── Postres ──
+  product({
+    slug: 'quesillo', name: 'Quesillo', categoryId: 'postres', isFeatured: true, badge: '¡Top 1!', variantLabel: 'Variante',
+    note: '13 cm de diámetro · tupper hexagonal',
+    description: 'El flan venezolano más cremoso, bañado en caramelo. Te llevas caramelo extra aparte.',
+    story: 'El quesillo es la crema volteada venezolana: más denso y cremoso que un flan, con sus característicos huequitos. Llega en un tupper hexagonal reusable y con una bolsita de caramelo extra, porque nunca sobra.',
+    variants: variants([['Clásico', 25], ['Café', 27], ['Coco', 27], ['Lúcuma', 28]]),
+  }),
+  product({
+    slug: 'tortas', name: 'Tortas', categoryId: 'postres', isFeatured: true, variantLabel: 'Torta',
+    note: 'Porción familiar (8 porciones)',
+    description: 'Bizcochos húmedos de receta casera para cumpleaños, reuniones o porque sí.',
+    story: 'Cada torta se hornea el mismo día de la entrega. Si quieres una decoración especial, un mensaje o un tamaño distinto, pídela desde la sección Cotizar.',
+    variants: variants([['Torta tres leches', 20], ['Torta de zanahoria', 22], ['Torta de chocolate', 24], ['Marquesa de chocolate', 26]]),
+  }),
+  product({
+    slug: 'bienmesabe', name: 'Bienmesabe', categoryId: 'postres', price: 22, stockStatus: 'on_order',
+    note: 'Molde individual grande',
+    description: 'Bizcocho bañado en crema de coco, con su toque de canela.',
+  }),
+
+  // ── Bebidas ──
+  product({
+    slug: 'papelon-con-limon', name: 'Papelón con limón', categoryId: 'bebidas', price: 6,
+    note: 'Botella de 500 ml',
+    description: 'Refrescante bebida de papelón y limón recién exprimido.',
+  }),
+  product({
+    slug: 'chicha-venezolana', name: 'Chicha venezolana', categoryId: 'bebidas', price: 9,
+    note: 'Botella de 500 ml',
+    description: 'Cremosa bebida de arroz con leche y canela, bien fría.',
+  }),
+  product({
+    slug: 'ponche-crema', name: 'Ponche Crema', categoryId: 'bebidas', price: 35, isSeasonal: true, stockStatus: 'on_order',
+    badge: 'Navidad', note: 'Botella de 750 ml',
+    description: 'El licor navideño venezolano: cremoso, con nuez moscada. Solo en diciembre.',
+  }),
+
+  // ── Inventos del mes ──
+  product({
+    slug: 'tequenos-pan-de-jamon', name: 'Tequeños de pan de jamón', categoryId: 'inventos-del-mes', price: 20,
+    isSeasonal: true, badge: 'Temporada', note: 'Docena',
+    description: 'Lo mejor de la Navidad venezolana en un tequeño: jamón, pasas y aceitunas.',
+  }),
+  product({
+    slug: 'quesillo-chicha-morada', name: 'Quesillo de chicha morada', categoryId: 'inventos-del-mes', price: 28,
+    badge: 'Nuevo', note: '13 cm de diámetro',
+    description: 'Nuestro quesillo con un giro bien peruano: caramelo de chicha morada.',
+  }),
 ];
-

@@ -11,10 +11,13 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const ICON_NAMES = [
-  'add', 'arrow_back_ios_new', 'arrow_forward', 'bakery_dining', 'cake', 'call', 'celebration',
-  'chat_bubble', 'check', 'close', 'delete', 'delivery_dining', 'expand_more', 'favorite', 'home',
-  'icecream', 'info', 'ios_share', 'location_on', 'map', 'pie_chart', 'remove',
-  'restaurant', 'schedule', 'search', 'search_off', 'star', 'storefront',
+  'add', 'add_shopping_cart', 'arrow_back_ios_new', 'arrow_forward', 'auto_awesome', 'bakery_dining', 'block',
+  'cake', 'call', 'celebration', 'chat_bubble', 'check', 'check_circle', 'close', 'cookie', 'delete',
+  'delivery_dining', 'expand_more', 'favorite', 'gavel', 'home', 'icecream', 'info', 'ios_share', 'kitchen',
+  'local_bar', 'location_on', 'mail', 'map', 'menu', 'menu_book', 'microwave', 'more_horiz', 'pie_chart',
+  'redeem', 'remove', 'request_quote', 'restaurant', 'schedule', 'search', 'search_off', 'shopping_bag',
+  'star', 'storefront', 'tapas', 'tips_and_updates', 'volunteer_activism', 'ac_unit', 'local_fire_department',
+  'egg_alt', 'water_drop', 'handshake', 'eco',
 ];
 
 async function downloadInstance(fill, fileName) {

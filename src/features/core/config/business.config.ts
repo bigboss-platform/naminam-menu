@@ -1,6 +1,8 @@
 /**
- * Business contact data — all confirmed by the client (2026-10-04):
- * WhatsApp/phone, Instagram, address, hours, Google Maps location.
+ * Business data — Los Antojitos de Santanita (Lima, Perú · San Martín de Porres).
+ * From the PRD: email, city, footer copy, free delivery rule. PLACEHOLDERS (no real accounts
+ * yet): WhatsApp, Instagram, Facebook, hours, address. Placeholder links lead nowhere
+ * (see utils/links.util.ts) — replace the values below when the accounts exist.
  */
 
 export type OpeningHoursRow = {
@@ -10,29 +12,40 @@ export type OpeningHoursRow = {
   closesAt: string;
 };
 
+/** Fake contact values: any link built from them renders as an inert "#". */
+export const PLACEHOLDER_WHATSAPP = '51900000000';
+export const PLACEHOLDER_INSTAGRAM = 'antojitos.santanita';
+export const PLACEHOLDER_FACEBOOK = '';
+
 export const BUSINESS = {
-  name: 'Ñami Ñam',
-  tagline: 'Dulcería · Pastelería',
+  name: 'Los Antojitos de Santanita',
+  shortName: 'Santanita',
+  tagline: 'Antojitos venezolanos con giros peruanos',
   /** Digits only, international format, no "+" — used to build wa.me links. */
-  whatsappNumber: '584126722218',
-  whatsappDisplay: '+58 412 672 2218',
-  /** Phone calls ("Llamar") — same line as WhatsApp. */
-  phoneNumber: '+584126722218',
-  instagramHandle: 'nami_pasteleria',
-  address: 'Nueva Segovia, Carrera 3 entre calles 6 y 7',
-  city: 'Barquisimeto',
-  /** Only the days the client listed — no row is invented for Monday. */
+  whatsappNumber: PLACEHOLDER_WHATSAPP,
+  phoneNumber: PLACEHOLDER_WHATSAPP,
+  instagramHandle: PLACEHOLDER_INSTAGRAM,
+  facebookUrl: PLACEHOLDER_FACEBOOK,
+  email: 'antojitos.santanita@gmail.com',
+  address: 'San Martín de Porres',
+  city: 'Lima, Perú',
+  /** Approximate center of SMP — no exact address is published (delivery only). */
+  mapLatitude: -12.0089,
+  mapLongitude: -77.0844,
+  footerCopy: 'Postres y comidas artesanales venezolanas con giros peruanos, en Lima, Perú.',
+  deliveryNote: 'Delivery gratis en SMP y zonas aledañas de lunes a viernes a partir de las 5 p. m.',
+  /** Placeholder hours: owner works until ~8:30 p. m., production on weekends. */
   hours: [
-    { label: 'Martes a viernes', opensAt: '10:00', closesAt: '20:00' },
-    { label: 'Sábado y domingo', opensAt: '11:00', closesAt: '21:00' },
+    { label: 'Lunes a viernes', opensAt: '17:00', closesAt: '22:00' },
+    { label: 'Sábado y domingo', opensAt: '10:00', closesAt: '20:00' },
   ] satisfies OpeningHoursRow[],
 };
 
-export const INSTAGRAM_URL = `https://www.instagram.com/${BUSINESS.instagramHandle}/`;
-
-/** `tel:` link — on a phone it opens the dialer with the number ready to call. */
-export const PHONE_CALL_URL = `tel:${BUSINESS.phoneNumber}`;
-
-/** Client's Google Maps pin, rendered inline in the footer (no API key needed). */
-const MAP_COORDINATES = '10.0614949,-69.2922501';
-export const MAP_EMBED_URL = `https://maps.google.com/maps?q=${MAP_COORDINATES}&z=17&hl=es&output=embed`;
+/** Peruvian legal data for the Libro de Reclamaciones. PLACEHOLDER until the company is registered. */
+export const LEGAL = {
+  businessName: 'Los Antojitos de Santanita (razón social en trámite)',
+  ruc: '20000000000',
+  fiscalAddress: 'San Martín de Porres, Lima, Perú',
+  /** Legal deadline to answer a complaint (Código de Protección y Defensa del Consumidor). */
+  responseDays: 15,
+};

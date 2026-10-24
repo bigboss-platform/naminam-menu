@@ -4,47 +4,133 @@
   padding: 0 var(--gutter);
 }
 
-/* ── layout="icing" (/test-glaseado) ── */
-
-/* Edge to edge (the dividers span the whole screen) */
-.fullWidth {
-  margin-inline: calc(50% - 50vw);
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-3xl);
 }
 
-.icingBackdrop {
-  background: var(--c-icing);
+.sectionTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
 }
 
-/*
- * The divider drawing is stretched to the screen (preserveAspectRatio none) and the browser
- * anti-aliases its top edge, letting the backdrop bleed through as a hairline. The top 2px
- * of the backdrop take the color above instead, so the seam disappears. Kept to 2px: the
- * smooth models start at the top-left corner, where a taller strip would show.
- */
-.icingStart {
-  /* Space between the hero text and where it starts to melt */
-  margin-top: var(--space-xl);
+/* ── Consentidos band (Manjar) with drip dividers ── */
+/* The 2px strips hide the anti-aliasing seam of the stretched divider drawing */
+.dripStart {
   background: linear-gradient(var(--c-bg) 0 2px, var(--c-icing) 2px);
 }
 
-/* Same seam fix for the pink divider: its top edge sits on the pink band above it */
-.icingEnd {
+.dripEnd {
   background: linear-gradient(var(--c-icing) 0 2px, transparent 2px);
 }
 
-/* The pink band: content back on the page's column (same width as before → the wheel is
-   unchanged); flow-root keeps the wheel section's own margins inside the band (no cream gaps) */
-.icingBand {
-  /* Text tones picked for the icing pink (audit 2026-10-10): both pass AA on #eebdb6 */
-  --section-title-color: #431d11;
-  --see-all-color: #653c34;
-  /* "Nuestros favoritos" as big as the hero headline (--font-size-3xl: 36px, 48px from 768px) */
-  --section-title-size: var(--font-size-3xl);
+.featuredBand {
   display: flow-root;
-  padding-inline: calc((100vw - min(100vw, var(--content-max))) / 2 + var(--gutter));
+  padding: var(--space-md) 0 var(--space-xl);
+  background: var(--c-icing);
 }
 
-/* Content 30px closer to the band's top than the wheel section's usual 52px (audit 2026-10-10) */
-.icingBand > :first-child {
-  padding-top: calc(var(--space-xl) + var(--space-20) - 30px);
+.featuredBand .sectionTitle {
+  margin-bottom: var(--space-xl);
+}
+
+.featuredLayout {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 1000px) {
+  .featuredLayout {
+    grid-template-columns: 3fr 1fr;
+    align-items: start;
+  }
+}
+
+.featuredGrid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 700px) {
+  .featuredGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.seeAll {
+  display: block;
+  width: fit-content;
+  margin: var(--space-xl) auto 0;
+  padding: var(--space-12) var(--space-xl);
+  border-radius: var(--radius-pill);
+  background: var(--c-cacao);
+  color: var(--c-arena);
+  font-family: var(--font-display), cursive;
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+}
+
+/* ── Síguenos ── */
+.follow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* ── Cotizador (Guayaba panel, white labels) ── */
+.quotePanel {
+  --form-label-color: var(--c-white);
+  --form-error-color: var(--c-white);
+  --form-hint-color: rgba(255, 255, 255, 0.85);
+  position: relative;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+  border-radius: 40px;
+  background: var(--c-guayaba);
+  box-shadow: var(--shadow-2);
+  scroll-margin-top: 96px;
+  overflow: hidden;
+}
+
+@media (min-width: 700px) {
+  .quotePanel {
+    padding: var(--space-2xl) var(--space-2xl);
+  }
+}
+
+.quotePanel::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(247, 181, 44, 0.35);
+  pointer-events: none;
+}
+
+.quoteTitle {
+  position: relative;
+  color: var(--c-white);
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.quoteLead {
+  position: relative;
+  margin: var(--space-sm) auto var(--space-lg);
+  max-width: 520px;
+  color: var(--c-white);
+  font-weight: 600;
+  text-align: center;
 }

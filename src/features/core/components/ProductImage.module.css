@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 30% 30%, #fbe6df 0%, var(--c-chip) 70%);
+  background: radial-gradient(circle at 30% 30%, var(--c-arena) 0%, var(--c-chip) 70%);
 }
 
 .placeholderLogo {

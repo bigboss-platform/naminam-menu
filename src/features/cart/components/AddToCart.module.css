@@ -1,0 +1,107 @@
+.addToCart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: auto;
+  padding-top: var(--space-sm);
+}
+
+.variant {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.variantLabel {
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-cocoa);
+}
+
+.select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 40px 0 var(--space-12);
+  appearance: none;
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius);
+  background-color: var(--c-white);
+  background-image: linear-gradient(45deg, transparent 50%, var(--c-cacao) 50%),
+    linear-gradient(135deg, var(--c-cacao) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  color: var(--c-cacao);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--c-turquesa);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.price {
+  font-family: var(--font-display), cursive;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--c-cacao);
+  font-variant-numeric: tabular-nums;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 46px;
+  padding: 0 var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--c-turquesa);
+  color: var(--c-cacao);
+  font-family: var(--font-display), cursive;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  transition: transform 300ms var(--ease-spring), background-color 200ms ease;
+}
+
+.button .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.buttonAdded {
+  background: var(--c-manjar);
+  animation: wiggle 500ms ease;
+}
+
+.button:disabled {
+  background: var(--c-chip);
+  color: var(--c-cocoa);
+  cursor: not-allowed;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+
+@media (hover: hover) {
+  .button:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-1);
+  }
+}

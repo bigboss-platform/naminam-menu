@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, Vollkorn } from 'next/font/google';
+import { Nunito, Shantell_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 import { BottomNav } from '@/features/core/components/BottomNav.component';
 import { FloatingContactButtons } from '@/features/core/components/FloatingContactButtons.component';
@@ -11,8 +11,9 @@ import { SiteSettingsProvider } from '@/features/core/context/SiteSettings.conte
 import { getSiteData } from '@/server/siteData';
 import './globals.css';
 
-const displayFont = Vollkorn({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
-const sansFont = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+/** PRD 3.3: Shantell Sans for titles/display/logo, Nunito for body text. */
+const displayFont = Shantell_Sans({ subsets: ['latin'], weight: ['400', '600', '700', '800'], variable: '--font-display', display: 'swap' });
+const sansFont = Nunito({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 /** Self-hosted subsets of Material Symbols (only the icons we use) — see scripts/fetch-icon-font.mjs */
 const iconFont = localFont({ src: './fonts/material-symbols.ttf', variable: '--font-icons', display: 'block' });
 const iconFilledFont = localFont({
@@ -21,17 +22,20 @@ const iconFilledFont = localFont({
   display: 'block',
 });
 
+const DESCRIPTION = 'Tequeños, quesillos, tortas y pasapalos venezolanos con giros peruanos, hechos a mano en San Martín de Porres, Lima. Delivery gratis en SMP.';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
-    default: 'Ñami Ñam · Dulcería-Pastelería',
-    template: '%s · Ñami Ñam',
+    default: 'Los Antojitos de Santanita · Antojitos venezolanos en Lima',
+    template: '%s · Los Antojitos de Santanita',
   },
-  description: 'Postres, cheesecakes y dulces hechos para consentirte. Pide por WhatsApp.',
-  appleWebApp: { capable: true, title: 'Ñami Ñam', statusBarStyle: 'default' },
+  description: DESCRIPTION,
+  appleWebApp: { capable: true, title: 'Santanita', statusBarStyle: 'default' },
   openGraph: {
-    title: 'Ñami Ñam · Dulcería-Pastelería',
-    description: 'Un poquito de felicidad en cada bocado.',
-    locale: 'es_VE',
+    title: 'Los Antojitos de Santanita',
+    description: 'La felicidad empieza por un buen bocado.',
+    locale: 'es_PE',
     type: 'website',
   },
 };
@@ -40,20 +44,15 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#fdf6f0',
+  themeColor: '#fff6e4',
 };
-
-/** Pages are static and refresh at most every 60s (plus instantly via /api/revalidate from the back office). */
-export const revalidate = 60;
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { settings } = await getSiteData();
   return (
     <html
-      lang="es"
+      lang="es-PE"
       data-section-theme={SECTION_THEME}
-      // /test-moderno and /test-rasgado swap the theme before hydration (SectionThemeScope)
-      suppressHydrationWarning
       className={`${displayFont.variable} ${sansFont.variable} ${iconFont.variable} ${iconFilledFont.variable}`}
     >
       <body>

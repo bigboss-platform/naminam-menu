@@ -3,7 +3,7 @@
   top: 0;
   z-index: 30;
   padding-top: env(safe-area-inset-top);
-  background: rgba(253, 246, 240, 0.94);
+  background: rgba(255, 246, 228, 0.94);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   border-bottom: 1px solid var(--c-border);
@@ -32,31 +32,24 @@
   gap: var(--space-md);
 }
 
-/* ── Mobile ── */
-.mobileLeft {
+.brand {
   display: flex;
   align-items: center;
   min-width: 0;
 }
 
-.mobileBrand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
-}
-
-/* ── Instagram + WhatsApp: mobile only, bare icons (no background) — desktop uses floating buttons ── */
-.mobileActions {
+.actions {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
+/* Instagram + WhatsApp: mobile only, bare icons — desktop uses the floating buttons */
 .iconLink {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
+  width: 40px;
   height: 44px;
   flex-shrink: 0;
   transition: transform 300ms var(--ease-spring);
@@ -67,54 +60,48 @@
   transition: transform 100ms ease;
 }
 
+.iconLink[aria-disabled='true'] {
+  opacity: 0.55;
+}
+
 .instagram {
-  color: #d62976;
+  color: var(--c-guayaba);
 }
 
 .whatsapp {
-  color: var(--c-whatsapp);
+  color: var(--c-success);
 }
 
-/* ── Desktop ── */
-.desktopBrand,
 .desktopNav {
   display: none;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1000px) {
   .inner {
-    height: 72px;
-  }
-
-  .mobileLeft {
-    display: none;
-  }
-
-  .desktopBrand {
-    display: flex;
+    height: 76px;
   }
 
   .desktopNav {
     display: flex;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
   }
 
   .desktopLink {
     position: relative;
     padding: var(--space-sm) 0;
     font-size: var(--font-size-md);
-    font-weight: 500;
+    font-weight: 700;
     color: var(--c-text-muted);
     transition: color 200ms ease;
   }
 
   .desktopLink:hover {
-    color: var(--c-cacao);
+    color: var(--c-guayaba);
   }
 
   .desktopLinkActive {
     color: var(--c-cacao);
-    font-weight: 700;
+    font-weight: 800;
   }
 
   .desktopLinkActive::after {
@@ -123,12 +110,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--c-fresa);
+    height: 3px;
+    border-radius: 3px;
+    background: var(--c-guayaba);
   }
 
-  .mobileActions {
+  .iconLink {
     display: none;
   }
 }
